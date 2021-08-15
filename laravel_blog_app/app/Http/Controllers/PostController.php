@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return ("BLOG PAGE");
+        return view("blog.index");
     }
 
     /**

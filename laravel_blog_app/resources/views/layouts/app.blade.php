@@ -14,7 +14,7 @@
     
     <!-- Styles -->
     <link href=" {{ asset('css/tailwind.css') }}" rel="stylesheet">
-    <!-- <link href=" {{ asset('css/app.css') }}" rel="stylesheet"> -->
+    <link href=" {{ asset('css/app.css') }}" rel="stylesheet"> 
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
     <div id="app">

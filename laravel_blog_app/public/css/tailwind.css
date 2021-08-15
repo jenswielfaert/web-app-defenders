@@ -21,6 +21,15 @@ Use a better box model (opinionated).
 Use a more readable tab size (opinionated).
 */
 
+.background-image{
+  background-image: url('https://cdn.pixabay.com/photo/2016/11/30/12/16/question-mark-1872665_960_720.jpg');
+  background-attachment:fixed;
+  background-position: center center;
+  background-repeat:no-repeat;
+  background-size: cover;
+  height:500px;
+}
+
 html {
   -moz-tab-size: 4;
   -o-tab-size: 4;
