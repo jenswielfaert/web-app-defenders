@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -13,7 +14,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view("blog.index");
+        $posts = Post::all(); //Gets all posts from DB.
+        //dd($posts);
+        return view("blog.index")
+            ->with('posts', Post::orderBy('updated_at', 'DESC')->get());
     }
 
     /**
