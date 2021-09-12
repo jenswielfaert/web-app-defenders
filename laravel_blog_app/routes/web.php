@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PostController;
@@ -22,6 +23,8 @@ Route::get('/', [PagesController::class, 'index']);
 Route::get('/blog', [PostController::class, 'index']);
 
 Route::get('/blog/create', [PostController::class, 'create']);
+
+Route::post('/blog', [PostController::class, 'store']);
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

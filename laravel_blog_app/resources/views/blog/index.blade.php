@@ -10,7 +10,20 @@
     </div>
 </div>
 
+@if (session()->has('message')) 
+    <div class="w-4/5 m-auto mt-10 pl-2">
+        <p class="w-1/6 mb-4 text-gray-50 bg-green500 rounded-2xl py-4"> {{session()->get('message')}} </p>
+    </div>
+@endif
+
+@if (Auth::check())
+    <div class="pt-15 <-4/5 m-auto"> 
+        <a href="/blog/create" class="bg-blue-500 uppercase bg-transparent test-gray-100 text-xs font-extrabold py-3 px-5 "> Create a Post </a>
+    </div>
+@endif
+<br>
 @foreach ($posts as $post)
+    <br>
     <div class="sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-15 border-b border-gray-200">
         <div>
             <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg" width="600" alt=""/>

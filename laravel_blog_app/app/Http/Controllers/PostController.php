@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
@@ -27,7 +27,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('blog.create');
+
     }
 
     /**
@@ -38,7 +39,25 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+        ]);
+
+        $newImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
+
+        $request->image->move(public_path('images'), $newImageName);
+
+        Post::create([
+            'title'=> $request->input('title'),
+            'slug'=> Str::random(5),
+            'description' => $request->input('description'),
+            'image_path' => $newImageName,
+            'user_id' => auth()->user()->id
+        ]);
+
+        return redirect('/blog')->with('message', 'Success !');
     }
 
     /**
