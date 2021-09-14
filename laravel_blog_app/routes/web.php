@@ -26,5 +26,7 @@ Route::get('/blog/create', [PostController::class, 'create']);
 
 Route::post('/blog', [PostController::class, 'store']);
 
+Route::get('/blog/{id}', [PostController::class, 'show' ]);
+
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

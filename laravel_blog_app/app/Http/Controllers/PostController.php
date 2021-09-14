@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all(); //Gets all posts from DB.
+        //$posts = Post::all(); //Gets all posts from DB.
         //dd($posts);
         return view("blog.index")
             ->with('posts', Post::orderBy('updated_at', 'DESC')->get());
@@ -57,7 +57,7 @@ class PostController extends Controller
             'user_id' => auth()->user()->id
         ]);
 
-        return redirect('/blog')->with('message', 'Success !');
+        return redirect('/blog')->with('message', 'Your Post has been added!');
     }
 
     /**
@@ -68,7 +68,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::where('id', $id)->first();
+        return view('blog.show', compact('post'));
     }
 
     /**
