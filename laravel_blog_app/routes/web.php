@@ -22,11 +22,17 @@ Route::get('/', [PagesController::class, 'index']);
 
 Route::get('/blog', [PostController::class, 'index']);
 
-Route::get('/blog/create', [PostController::class, 'create']);
+Route::get('/blog/create', [PostController::class, 'create'])->middleware('auth');;
 
 Route::post('/blog', [PostController::class, 'store']);
 
 Route::get('/blog/{id}', [PostController::class, 'show' ]);
+
+Route::get('/blog/{id}/edit', [PostController::class, 'edit']);
+
+Route::put('/blog/{id}', [PostController::class ,'update'])->middleware('auth');
+
+Route::delete('/blog/{id}', [PostController::class, 'destroy'])->middleware('auth');
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

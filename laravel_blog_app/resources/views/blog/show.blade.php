@@ -2,6 +2,8 @@
 
 @section('content')
 
+<a href="/blog" class="bg-blue-300 uppercase font-extrabold rounded-1xl py-4 px-6 text-m"> Back </a>
+
 <div class=" w-4/5 m-auto text-left">
     <div class="py-15">
         <h1 class="text-6xl">

@@ -26,7 +26,13 @@
     <br>
     <div class="sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-15 border-b border-gray-200">
         <div>
-            <img src="https://cdn.pixabay.com/photo/2016/11/22/21/26/notebook-1850613_960_720.jpg" width="600" alt=""/>
+            @if ($post->image_path)
+                <img src="{{asset('images/' . $post->image_path) }}" width="600" alt="post_image"/>
+            @else
+                <img src="{{asset('images/613e3aad6f31c-tgregfd-jpg')}}" width="600" alt="post_default_image"/>
+            @endif
+
+            
         </div>
 
         <div>
@@ -38,6 +44,20 @@
             <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light"> {{$post->description}} </p>
 
             <a href="/blog/{{$post->id}}" class="bg-blue-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-lg"> Keep Reading</a>
+
+            @if (isset(Auth::user()->id) && Auth::user()->id == $post->user->id)
+                <span class="float-right">
+                    <a href="/blog/{{$post->id}}/edit" class="text-gray-700 italic hover:text-gray-900 pb-1 border-b-2">Edit</a> 
+                    
+                </span>
+                <span class="float-right">
+                    <form method="POST" action="/blog/{{$post->id}}">
+                        @csrf
+                        @method('delete')
+                        <button class="text-red-500 pr-3" type="submit">Delete</button>
+                    </form>
+                </span>
+            @endif
         </div>
     </div>
 @endforeach

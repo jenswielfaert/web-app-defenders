@@ -5,7 +5,7 @@
 <div class=" w-4/5 m-auto text-left">
     <div class="py-15">
         <h1 class="text-6xl">
-            Create Post
+            Update the Post {{$post->title}}
         </h1>
     </div>
 </div>
@@ -23,12 +23,14 @@
         </ul>
     </div>
 @endif
-<div class="w-4/5 m-auto pt-20">
-    <form action="/blog" method="POST" enctype="multipart/form-data">
-        @csrf
 
-        <input type="text" name="title" placeholder="Title..." class="bg-transparent py-20 block border-b-2 w-full h-60 text-xl outline-border">
-        <textarea name="description" placeholder="Description..." class=" py-20 bg-transparent block border-b-2 w-full h-60 text-xl outline-border"> </textarea>
+<div class="w-4/5 m-auto pt-20">
+    <form action="{{ url('blog/'.$post->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <input type="hidden" value="{{$post->id}}" name="id">
+        <input type="text" name="title" required value="{{$post->title}}" class="bg-transparent py-20 block border-b-2 w-full h-60 text-xl outline-border">
+        <textarea name="description" required class=" py-20 bg-transparent block border-b-2 w-full h-60 text-xl outline-border">{{$post->description}}</textarea>
         <div class="bg-grey-lighter pt-15">
             <label class="w-44 flex flex-col items-center px-2 py-3 bg-white-rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer">
             <span class="mt-2 text-base leading-normal"> Select a file </span>
