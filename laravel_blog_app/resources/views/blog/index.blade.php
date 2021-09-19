@@ -29,7 +29,7 @@
             @if ($post->image_path)
                 <img src="{{asset('images/' . $post->image_path) }}" width="600" alt="post_image"/>
             @else
-                <img src="{{asset('images/613e3aad6f31c-tgregfd-jpg')}}" width="600" alt="post_default_image"/>
+                <img src="{{asset('images/df.jpg')}}" width="600" alt="post_default_image"/>
             @endif
 
             
@@ -44,6 +44,25 @@
             <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light"> {{$post->description}} </p>
 
             <a href="/blog/{{$post->id}}" class="bg-blue-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-lg"> Keep Reading</a>
+
+            <div class="w-4/5 m-auto pt-20 text-center">
+                @if (!$post->likedBy(auth()->user() ))
+                    <form action="{{ route('posts.likes', $post->id) }}" method="POST" >
+                        @csrf
+                        <button type="submit" class="bg-green-600 hover:bg-green-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-m">Like</button>
+                    </form>
+                @else
+                    <form action="{{ route('posts.likes', $post->id) }}" method="POST"> 
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-600 hover:bg-red-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-m">UnLike</button>
+                    </form>
+                @endif
+                
+                
+                <span>{{$post->likes->count()}} {{Str::plural('like', $post->likes->count()) }}</span>
+            </div>
+
 
             @if (isset(Auth::user()->id) && Auth::user()->id == $post->user->id)
                 <span class="float-right">

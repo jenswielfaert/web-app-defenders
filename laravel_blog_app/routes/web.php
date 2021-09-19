@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostLikeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +34,10 @@ Route::get('/blog/{id}/edit', [PostController::class, 'edit']);
 Route::put('/blog/{id}', [PostController::class ,'update'])->middleware('auth');
 
 Route::delete('/blog/{id}', [PostController::class, 'destroy'])->middleware('auth');
+
+Route::post('/blog/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
+
+Route::delete('/blog/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes');
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
