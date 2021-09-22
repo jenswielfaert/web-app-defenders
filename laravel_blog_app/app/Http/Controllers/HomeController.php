@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Log;
 
 use Illuminate\Http\Request;
 
@@ -14,6 +15,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        Log::channel('abuse')->info("Redirected to login Page ");
     }
 
     /**
@@ -23,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        Log::channel('abuse')->info("Showing the INDEX PAGE");
         return view('index');
     }
 }

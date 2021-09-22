@@ -99,6 +99,16 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+
+        //Creation of Customer Log Channel
+        'abuse' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/myAbuseLog.log'),
+            'level' => 'debug'
+        ],
     ],
+
+        
 
 ];

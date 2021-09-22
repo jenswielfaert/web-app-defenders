@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -22,6 +23,7 @@ class PostController extends Controller
     {
         //$posts = Post::all(); //Gets all posts from DB.
         //dd($posts);
+        Log::channel('abuse')->info("Showing the Blog PAGE by user ".auth()->user()->id);
         return view("blog.index")
             ->with('posts', Post::orderBy('updated_at', 'DESC')->get());
     }
@@ -33,6 +35,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        Log::channel('abuse')->info("create blog page is called by user ". auth()->user()->id);
         return view('blog.create');
 
     }
@@ -62,7 +65,7 @@ class PostController extends Controller
             'image_path' => $newImageName,
             'user_id' => auth()->user()->id
         ]);
-
+        Log::channel('abuse')->info("Creating the Post With title ".$request->input('title'). " by user", ['user_id' => $request->user()->id]);
         return redirect('/blog')->with('message', 'Your Post has been added!');
     }
 
@@ -75,6 +78,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::where('id', $id)->first();
+        Log::channel('abuse')->info("SHOWING the Post With ID ".$id. " by user", ['user_id' => auth()->user()->id]);
         return view('blog.show', compact('post'));
     }
 
@@ -87,6 +91,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::where('id', $id)->first();
+        Log::channel('abuse')->info("EDITING the Post With id ".$id. " by user", ['user_id' => auth()->user()->id]);
         return view('blog.edit', compact('post'));
     }
 
@@ -115,7 +120,7 @@ class PostController extends Controller
         //$actualPost->user->id = $request->Auth::user()->id;
         $actualPost->image_path = $UpdatednewImageName;
         $actualPost->update();
-       
+        Log::channel('abuse')->info("UPDATING the Post With Title ".$request->input('title'). " by user", ['user_id' => $request->user()->id]);
         return redirect('/blog')->with('message', 'Post has been updated !');
     }
 
@@ -129,6 +134,7 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $post->delete();
+        Log::channel('abuse')->info("DELETING the Post With id ".$id. " by user", ['user_id' => auth()->user()->id]);
         return redirect()->back()->with('status','Post Deleted Successfully');
     }
 }

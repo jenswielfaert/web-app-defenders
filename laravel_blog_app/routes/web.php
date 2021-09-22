@@ -29,7 +29,7 @@ Route::post('/blog', [PostController::class, 'store']);
 
 Route::get('/blog/{id}', [PostController::class, 'show' ]);
 
-Route::get('/blog/{id}/edit', [PostController::class, 'edit']);
+Route::get('/blog/{id}/edit', [PostController::class, 'edit',]);
 
 Route::put('/blog/{id}', [PostController::class ,'update'])->middleware('auth');
 
