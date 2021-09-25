@@ -21,15 +21,15 @@ Auth::routes();
 
 Route::get('/', [PagesController::class, 'index']);
 
-Route::get('/blog', [PostController::class, 'index']);
+Route::get('/blog', [PostController::class, 'index'])->name('posts');
 
-Route::get('/blog/create', [PostController::class, 'create'])->middleware('auth');;
+Route::get('/blog/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
 
-Route::post('/blog', [PostController::class, 'store']);
+Route::post('/blog', [PostController::class, 'store'])->name('posts.store');
 
-Route::get('/blog/{id}', [PostController::class, 'show' ]);
+Route::get('/blog/{id}', [PostController::class, 'show' ])->name('posts.show');
 
-Route::get('/blog/{id}/edit', [PostController::class, 'edit',]);
+Route::get('/blog/{id}/edit', [PostController::class, 'edit',])->name('posts.edit');
 
 Route::put('/blog/{id}', [PostController::class ,'update'])->middleware('auth');
 

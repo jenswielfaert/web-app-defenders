@@ -5,6 +5,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
@@ -19,13 +21,21 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //$posts = Post::all(); //Gets all posts from DB.
         //dd($posts);
+
+
         Log::channel('abuse')->info("Showing the Blog PAGE by user ".auth()->user()->id);
-        return view("blog.index")
-            ->with('posts', Post::orderBy('updated_at', 'DESC')->get());
+        $url = URL::temporarySignedRoute('posts', now()->addMinutes(30));
+        if (! $request->hasValidSignature()) {
+            abort(401);
+        }
+        else{
+            return view("blog.index")->with('posts', Post::orderBy('updated_at', 'DESC')->get())->with($url);
+        }
+        
     }
 
     /**
@@ -75,11 +85,17 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $post = Post::where('id', $id)->first();
         Log::channel('abuse')->info("SHOWING the Post With ID ".$id. " by user", ['user_id' => auth()->user()->id]);
-        return view('blog.show', compact('post'));
+        if (! $request->hasValidSignature()) {
+            abort(401);
+        }
+        else{
+            return view('blog.show', compact('post'));
+        }
+        
     }
 
     /**
@@ -88,11 +104,17 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $post = Post::where('id', $id)->first();
-        Log::channel('abuse')->info("EDITING the Post With id ".$id. " by user", ['user_id' => auth()->user()->id]);
-        return view('blog.edit', compact('post'));
+        Log::channel('abuse')->info("EDITING the Post With id ".$id. " by user", ['user_id' => auth()->user()->id]); //Logging
+        $url = URL::temporarySignedRoute('posts', now()->addMinutes(30));
+        if (! $request->hasValidSignature()) {
+            abort(401);
+        }
+        else{
+            return view('blog.edit', compact('post'));
+        }
     }
 
     /**

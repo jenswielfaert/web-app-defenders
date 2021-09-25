@@ -2,7 +2,7 @@
 
 @section('content')
 
-<a href="/blog" class="bg-blue-300 uppercase font-extrabold rounded-1xl py-4 px-6 text-m"> Back </a>
+<a href="{{url()->previous()}}" class="bg-blue-300 uppercase font-extrabold rounded-1xl py-4 px-6 text-m"> Back </a>
 
 <div class=" w-4/5 m-auto text-left">
     <img src="{{asset('images/' . $post->image_path) }}" class="rounded-full h-24 w-24 flex items-center md:float-center"/> <br>

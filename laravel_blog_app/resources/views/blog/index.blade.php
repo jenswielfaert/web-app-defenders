@@ -43,7 +43,7 @@
 
             <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light"> {{$post->description}} </p>
 
-            <a href="/blog/{{$post->id}}" class="bg-blue-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-lg"> Keep Reading</a>
+            <a href="{{ URL::temporarySignedRoute('posts.show', now()->addMinutes(30), ['id' => $post->id]) }}" class="bg-blue-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-lg"> Keep Reading</a>
 
             <div class="w-4/5 m-auto pt-20 text-center">
                 @if (!$post->likedBy(auth()->user() ))
@@ -66,7 +66,7 @@
 
             @if (isset(Auth::user()->id) && Auth::user()->id == $post->user->id)
                 <span class="float-right">
-                    <a href="/blog/{{$post->id}}/edit" class="text-gray-700 italic hover:text-gray-900 pb-1 border-b-2">Edit</a> 
+                    <a href="{{ URL::temporarySignedRoute('posts.edit', now()->addMinutes(30), ['id' => $post->id]) }}" class="text-gray-700 italic hover:text-gray-900 pb-1 border-b-2">Edit</a> 
                     
                 </span>
                 <span class="float-right">

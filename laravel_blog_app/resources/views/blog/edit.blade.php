@@ -9,7 +9,7 @@
         </h1>
     </div>
 </div>
-
+<a href="{{url()->previous()}}" class="bg-blue-300 uppercase font-extrabold rounded-1xl py-4 px-6 text-m"> Back </a>
 <br>
 
 @if ($errors->any())
