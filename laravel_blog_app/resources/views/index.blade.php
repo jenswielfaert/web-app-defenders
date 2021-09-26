@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@include('cookie-consent::index')
 @if (session()->has('info')) 
     <div class="w-4/5 m-auto mt-10 pl-2">
         <p class="w-3/6 mb-4 text-gray-40 text-center bg-yellow-300 rounded-1xl py-4"> {{session()->get('info')}} </p>
