@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+@if (session()->has('info')) 
+    <div class="w-4/5 m-auto mt-10 pl-2">
+        <p class="w-3/6 mb-4 text-gray-40 text-center bg-yellow-300 rounded-1xl py-4"> {{session()->get('info')}} </p>
+    </div>
+@endif
+
 <div class="background-image grid grid-cols-1 m-auto">
     <div class="flex text-gray-100 pt-10">
         <div class="m-auto pt-4 pb-16 sm:m-auto w-4/5 block text-center">
@@ -9,6 +15,8 @@
         </div>
     </div>
 </div>
+
+
 
 <div class="sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-4 py-15 border-b w-25 border-gray-200"> 
     <div>

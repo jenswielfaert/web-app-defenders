@@ -28,7 +28,13 @@
                 <nav class="space-x-4 text-gray-300 text-sm sm:text-base">
                     <a class="no-underline hover:underline" href="/"> Home </a>
                     <!-- <a class="no-underline hover:underline" href="/blog"> Blog </a> -->
+
+                    @if (Auth::Check())
                     <a class="no-underline hover:underline" href="{{ URL::temporarySignedRoute('posts', now()->addMinutes(30)) }}"> Blog </a> 
+                    @else
+                    <a disabled class="no-underline hover:underline"  href="{{ route('register') }}"> Blog </a> 
+                    @endif
+                    
                     @guest
                         <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
                         @if (Route::has('register'))

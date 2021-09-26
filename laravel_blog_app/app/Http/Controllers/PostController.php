@@ -30,7 +30,7 @@ class PostController extends Controller
         Log::channel('abuse')->info("Showing the Blog PAGE by user ".auth()->user()->id);
         $url = URL::temporarySignedRoute('posts', now()->addMinutes(30));
         if (! $request->hasValidSignature()) {
-            abort(401);
+            return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
         }
         else{
             return view("blog.index")->with('posts', Post::orderBy('updated_at', 'DESC')->get())->with($url);
@@ -43,10 +43,17 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         Log::channel('abuse')->info("create blog page is called by user ". auth()->user()->id);
-        return view('blog.create');
+        if (! $request->hasValidSignature()) {
+            //abort(401);
+            return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
+        }
+        else{
+            return view('blog.create')->with('info', 'Please Login first');
+        }
+    
 
     }
 
@@ -90,7 +97,8 @@ class PostController extends Controller
         $post = Post::where('id', $id)->first();
         Log::channel('abuse')->info("SHOWING the Post With ID ".$id. " by user", ['user_id' => auth()->user()->id]);
         if (! $request->hasValidSignature()) {
-            abort(401);
+            //abort(401);
+            return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
         }
         else{
             return view('blog.show', compact('post'));
@@ -110,7 +118,8 @@ class PostController extends Controller
         Log::channel('abuse')->info("EDITING the Post With id ".$id. " by user", ['user_id' => auth()->user()->id]); //Logging
         $url = URL::temporarySignedRoute('posts', now()->addMinutes(30));
         if (! $request->hasValidSignature()) {
-            abort(401);
+            //abort(401);
+            return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
         }
         else{
             return view('blog.edit', compact('post'));

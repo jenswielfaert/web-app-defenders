@@ -19,7 +19,7 @@ use App\Http\Controllers\PostLikeController;
 
 Auth::routes();
 
-Route::get('/', [PagesController::class, 'index']);
+Route::get('/', [PagesController::class, 'index'])->name('index');
 
 Route::get('/blog', [PostController::class, 'index'])->name('posts');
 

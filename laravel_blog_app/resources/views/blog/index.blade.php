@@ -12,13 +12,17 @@
 
 @if (session()->has('message')) 
     <div class="w-4/5 m-auto mt-10 pl-2">
-        <p class="w-1/6 mb-4 text-gray-50 bg-green-500 rounded-2xl py-4"> {{session()->get('message')}} </p>
+        <p class="w-1/6 mb-4 text-gray-50 bg-green-500 rounded-1xl py-4"> {{session()->get('message')}} </p>
     </div>
 @endif
 
+<div class="pt-15 <-4/5 m-auto"> 
+    <a href="{{url()->previous()}}" class="bg-blue-300 uppercase font-extrabold rounded-1xl py-3 px-4 text-s"> Back </a>
+</div> <br>
+
 @if (Auth::check())
     <div class="pt-15 <-4/5 m-auto"> 
-        <a href="/blog/create" class="bg-blue-500 uppercase bg-transparent test-gray-100 text-xs font-extrabold py-3 px-5 "> Create a Post </a>
+        <a href="{{ URL::temporarySignedRoute('posts.create', now()->addMinutes(30)) }}" class="bg-blue-500 uppercase bg-transparent test-gray-100 text-xs font-extrabold py-3 px-5 "> Create a Post </a>
     </div>
 @endif
 <br>
