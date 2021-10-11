@@ -6,9 +6,9 @@ Having a blog allows you to express yourself, as well as inspire and educate oth
 # Acceptance criteria
 *how do we know that the goals have been reached?*
 
-[BEVEILIGING]
+# [BEVEILIGING]
 
-# HTTPS:
+## HTTPS:
 - [ ] Gebruik van HTTPS
 - [ ] Er zal niet kunnen gesurfd worden naar de URL door te kopieren.
 - [ ] HSTS preload list.
@@ -16,29 +16,29 @@ Having a blog allows you to express yourself, as well as inspire and educate oth
 - [ ] DNS CAA encryt toepassing.
 - [ ] Domain krijgt een A op de website van 'ssllabs.com/ssltest'.
 
-# SING UP:
+## SING UP:
 - [ ] Een user geeft een e-mail adres in en een wachtwoord.
 - [ ] Een wachtwoord kan bestaan uit de <printable> ASCII Karakters.
 - [ ] Een wachtwoord moet minstens 7 Karakters lang zijn.
 - [ ] Een user moet een bestaande e-mail adres ingeven.
 - [ ] Een Wachtwoord kan worden gekopieerd en geplakt.
 
-# API:
+## API:
 - [ ] HIBP api wordt gebruikt voor het weigeren van wachtwoorden die meer dan 300 keer als gebreached gemarkeerd zijn.
 
-# SIGN IN:
+## SIGN IN:
 - [ ] Een user kan pas inloggen als hij zijn e-mail adres heeft bevestigd door te bewijzen dat het zijn e-mail adres is.
 - [ ] Bij het fout invoeren van een wachtwoord moet de user 60seconden wachten.
 - [ ] Als de user ingelogd is kan hij bovenaan rechts zijn profiel foto zien.
 - [ ] Er wordt gevraagd aan de user om de noodzakelijke cookies te accepteren.
 
-# USER RECHTEN:
+## USER RECHTEN:
 - [ ] Een user kan zijn profiel bekijken.
 - [ ] Een user kan zijn gegevens aanpassen.
 - [ ] Een user kan zijn account verwijderen
 - [ ] Een user kan zijn gegevens exporteren en downloaden in een .CSV file
 
-# PERSOONLIJKE GEGEVENS EN BESCHERMING:
+## PERSOONLIJKE GEGEVENS EN BESCHERMING:
 - [ ] GDPR wordt toegepast aan de website
 - [ ] Website zal conform zijn met de privacy wetgeving.
 - [ ] Een user kan de privacyverklaring altijd raadplegen.
@@ -46,7 +46,7 @@ Having a blog allows you to express yourself, as well as inspire and educate oth
 - [ ] Een user is op de hoogte van het gebruik van noodzakelijke cookies.
 - [ ] Een user kan contact nemen zaols vermeld in de privacyverklaring.
 
-# BLOG:
+## BLOG:
 - [ ] Een user kan gewoon zijn eigen posts aanpassen of verwijderen.
 - [ ] Een user kan andere posts Liken.
 
