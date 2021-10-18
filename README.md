@@ -1,10 +1,7 @@
-# Goal
-*describe how this web app will (evantually) earn money or make the world a better place*
+# Doelstelling
+*Leg kort uit hoe deze webapp omzet zal maken of iets kan vergemakkelijken in het dagdagelijkse leven van zijn gebruikers.*
 
-
-
-
-Having a blog allows you to express yourself, as well as inspire and educate others on a variety of topics. It's one of the most effective methods to establish an online presence and share your expertise with people around the world. However, starting a blog can be very overwhelming. As a result, our team will develop a GDPR-compliant, secure blogging platform for people to share their expertise and thoughts. The web app will have a user-friendly interface that allows users to register or log in, create blog entries, add photos, and like and comment on other users' postings. In addition, one of the most useful features of our web app will be the ability to collaborate on blogs up to more than one person. As the group's administrator, you will be able to invite other members to contribute to the post, which makes our app an excellent tool for any business.
+Met een blog kun je jezelf uiten en anderen inspireren en inlichten over verschillende onderwerpen. Het is een van de meest effectieve methoden om een online aanwezigheid te tonen en uw expertise te delen met mensen over de hele wereld. Het starten van een blog kan echter erg overweldigend zijn. Als gevolg hiervan zal ons team een GDPR-conform, veilig blogplatform ontwikkelen waarop mensen hun expertise en gedachten kunnen delen. De web-app zal een gebruiksvriendelijke interface hebben waarmee gebruikers zich gemakkelijk en snel kunnen registreren of inloggen, blogberichten delen, foto's toevoegen en berichten van andere gebruikers liken en erop reageren. Bovendien is een van de handigste functies van onze web-app de mogelijkheid om samen te werken aan een post met meerdere personen. Als beheerder van de groep kun je andere leden uitnodigen om bij te dragen aan de post, waardoor onze app een uitstekende tool is voor elk bedrijf.
 
 
 # Acceptance criteria
