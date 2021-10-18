@@ -54,7 +54,7 @@ Having a blog allows you to express yourself, as well as inspire and educate oth
 ## BLOG:
 - [ ] Een user kan gewoon zijn eigen posts aanpassen of verwijderen.
 - [ ] Een user kan andere posts Liken & opmerkingen toevoegen.
-- [ ] Een Admin user kan alle posten bewijwerken of verwijderen.
+- [ ] Een Admin user kan alle posten bijwerken of verwijderen.
 
   
   
