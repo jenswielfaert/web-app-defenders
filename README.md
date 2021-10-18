@@ -90,7 +90,7 @@ Een Admin user kan alle posten bijwerken of verwijderen.
 |Injection | Bv :Gebruikers Data Is niet gevalideerd.  | Buid-in mechanism voor XSS attacks + validaties op de server-side.|
 |Insecure Design | App Architectuur kwetsbaarheid  |Testen and building van de app op regelmatige basis. |
 |Security Misconfiguration | Misgebruik van User rechten | Verwijderen/disabelen van onnodige rechten & features. Een Solid Security systeem implementeren.  |
-|Vulnerable and Outdated Components| Gebruik maken van niet up-to-date coponenten. | Updates installeren op regelmatige basis + zien altijd da talle compoenenten compatible blijven. |
+|Vulnerable and Outdated Components| Gebruik maken van niet up-to-date coponenten. | Updates installeren op regelmatige basis + zien altijd dat alle compoenenten compatible blijven. |
 |Software and Data Integrity Failures| Installeren van Plug-ins en en libraries van unknown bronnen. | Goed opletten dat we van een trusted website/bron een plug-in of librarie downloaden. |
 |Security Logging and Monitoring Failuresl | App zonder logging systeem. untracked belangrijke activitieten van de users| Loggen van belangrijke activiteiten. |
 |Server-Side Request Forgery (SSRF)| Unvalidated User supplied URL  | We valideren alle data die van een user komt.|
