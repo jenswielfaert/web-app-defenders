@@ -1,3 +1,6 @@
+## Bladwijzers
+[Diagrammen](https://github.com/EHB-TI/web-app-defenders/tree/main/Diagrammen)
+
 # Doelstelling
 *Leg kort uit hoe deze webapp omzet zal maken of iets kan vergemakkelijken in het dagdagelijkse leven van zijn gebruikers.*
 
@@ -75,6 +78,9 @@ Een Admin user kan alle posten bijwerken of verwijderen.
   
 # Threat model
 *describe your threat model. One or more architectural diagram expected. Also a list of the principal threats and what you will do about them*
+  
+ ![External Services archituur](https://github.com/EHB-TI/web-app-defenders/blob/main/Diagrammen/external%20services%20architectuur.png?raw=true)
+  
 | Naam | Bedreiging | Actie |
 | :-----: | :-: | :-: |
 |Boken Access Control | toegang verlenen tot onbevoegden | Beveiliging via Authorisatie & authenticatie. |
