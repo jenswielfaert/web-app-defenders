@@ -56,7 +56,15 @@ Having a blog allows you to express yourself, as well as inspire and educate oth
 - [ ] Een user kan andere posts Liken & opmerkingen toevoegen.
 - [ ] Een Admin user kan alle posten bijwerken of verwijderen.
 
-  
+## Injections : App is beveiligd tegen onderstaande injections. 
+CSRF
+HTML injection
+CSS injection
+XSSI
+Clickjacking
+XSS
+SQL injection
+Command injection
   
   
 # Threat model
