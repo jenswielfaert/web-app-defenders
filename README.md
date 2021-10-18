@@ -93,6 +93,8 @@ Een Admin user kan alle posten bijwerken of verwijderen.
 |Software and Data Integrity Failures| Installeren van Plug-ins en en libraries van onvertrouwde bronnen. | Goed opletten dat plug-ins/libraries van vertrouwde websites/bronnen afkomstig zijn. |
 |Security Logging and Monitoring Failuresl | App zonder logging systeem. Untracked belangrijke activitieten van de users| Loggen van belangrijke activiteiten. |
 |Server-Side Request Forgery (SSRF)| Unvalidated User supplied URL  | We valideren alle data die van een user komt.|
+  
+ [Bron: OWASP Web Application Security Risks](https://owasp.org/www-project-top-ten/)
  
 * Downgrade-attacks en cookie hijacking tegen te gaan
      * HSTS preload list
