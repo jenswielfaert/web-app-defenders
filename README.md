@@ -84,7 +84,6 @@ Een Admin user kan alle posten bijwerken of verwijderen.
   
 | Naam | Bedreiging | Actie |
 | :-----: | :-: | :-: |
-|Broken Access Control | toegang verlenen tot onbevoegden | Beveiliging via Authorisatie & authenticatie. |
 |Cryptographic Failures | Het niet gebruiken van Cryptografie voor gevoelige data.| Gevoelige data zal geencrypteerd & gehashed worden. |
 |Broken Access Control | De toegang verlenen voor onbevoegden op de componenten | Beveiliging via Authorisatie & authenticatie. |
 |Injection | Bv :Gebruikers Data Is niet gevalideerd.  | Buid-in mechanism voor XSS attacks + validaties op de server-side.|
