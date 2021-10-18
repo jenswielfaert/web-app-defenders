@@ -7,7 +7,6 @@ Met een blog kun je jezelf uiten en anderen inspireren en inlichten over verschi
 # Acceptatiecriteria
 *Hoe weten we of onze doelstellingen zijn bereikt?*
 
-Acceptatiecriteria voor posts: 
   - Gebruiker kan met enkele muis clicks een blog aanmaken. 
   - Andere gebruikers kunnen deze post raadplegen met alle details inbegrepen (auteur, aanmaakdatum post, bewerkingsdatum, reacties en aantal likes). 
   - Zelf opmerkingen en/of likes toevoegen. 
