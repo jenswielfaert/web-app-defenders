@@ -1,5 +1,5 @@
 ## Bladwijzers
-[Diagrammen](https://github.com/EHB-TI/web-app-defenders/tree/main/Diagrammen)
+[Diagrammen](https://github.com/EHB-TI/web-app-defenders/blob/main/Diagrammen/DIAGRAMMEN.md)
 
 # Doelstelling
 *Leg kort uit hoe deze webapp omzet zal maken of iets kan vergemakkelijken in het dagdagelijkse leven van zijn gebruikers.*
