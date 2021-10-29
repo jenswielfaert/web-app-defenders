@@ -82,17 +82,17 @@ Een Admin user kan alle posten bijwerken of verwijderen.
   
  ![External Services archituur](https://github.com/EHB-TI/web-app-defenders/blob/main/Diagrammen/external%20services%20architectuur.png?raw=true)
   
-| Naam | Bedreiging | Actie |
+| Naam | Bedreiging | Actie | Component |
 | :-----: | :-: | :-: |
-|Cryptographic Failures | Het niet gebruiken van Cryptografie voor gevoelige data.| Gevoelige data zal geencrypteerd & gehashed worden. |
-|Broken Access Control | De toegang verlenen voor onbevoegden op de componenten | Beveiliging via Authorisatie & authenticatie. |
-|Injection | Bv: Gebruikers Data Is niet gevalideerd.  | Built-in mechanism voor XSS attacks + validaties langs de server-side.|
-|Insecure Design | App Architectuur kwetsbaarheid  |Testen and building van de app op regelmatige basis. |
-|Security Misconfiguration | Misgebruik van User rechten | Verwijderen/disabelen van onnodige rechten & features. Een Solid Security systeem implementeren.  |
-|Vulnerable and Outdated Components| Gebruik maken van niet up-to-date componenten. | Updates installeren op regelmatige basis + zien dat alle componenten altijd compatibel blijven. |
-|Software and Data Integrity Failures| Installeren van Plug-ins en en libraries van onvertrouwde bronnen. | Goed opletten dat plug-ins/libraries van vertrouwde websites/bronnen afkomstig zijn. |
-|Security Logging and Monitoring Failuresl | App zonder logging systeem. Untracked belangrijke activitieten van de users| Loggen van belangrijke activiteiten. |
-|Server-Side Request Forgery (SSRF)| Unvalidated User supplied URL  | We valideren alle data die van een user komt.|
+|Cryptographic Failures | Het niet gebruiken van Cryptografie voor gevoelige data.| Gevoelige data zal geencrypteerd & gehashed worden. | Wachtwoorden |
+|Broken Access Control | De toegang verlenen voor onbevoegden op de componenten | Beveiliging via Authorisatie & authenticatie. | Beheer van Gebruikersrechten mechanisme |
+|Injection | Bv: Gebruikers Data Is niet gevalideerd.  | Built-in mechanism voor XSS attacks + validaties langs de server-side.| Bestanden (zoals fotos), input velden & formulieren |
+|Insecure Design | App Architectuur kwetsbaarheid  | Testen and building van de app op regelmatige basis. | Applicatie zelf & Bug's die componenten kunnen impacteren |
+|Security Misconfiguration | Misgebruik van User rechten | Verwijderen/disabelen van onnodige rechten & features. Een Solid Security systeem implementeren.  | Bv: verwijderen van een Blog |
+|Vulnerable and Outdated Components| Gebruik maken van niet up-to-date componenten. | Updates installeren op regelmatige basis + zien dat alle componenten altijd compatibel blijven. | programmeer taal zelf & extra features die van een derde partij komen |
+|Software and Data Integrity Failures| Installeren van Plug-ins en en libraries van onvertrouwde bronnen. | Goed opletten dat plug-ins/libraries van vertrouwde websites/bronnen afkomstig zijn. | Kan impact hebben op heel het programma, afhankelijk waarvoor die plug-in/biblitohteek gebruikt is |
+|Security Logging and Monitoring Failures | App zonder logging systeem. Untracked belangrijke activitieten van de users| Loggen van belangrijke activiteiten. | Authenticatie & Autorisatie mechanisme |
+|Server-Side Request Forgery (SSRF) | Unvalidated User supplied URL  | We valideren alle data die van een user komt.| Local File Inclusion & toegang tot bestanden & toegang tot een service webserver |
   
  [Bron: OWASP Web Application Security Risks](https://owasp.org/www-project-top-ten/)
  
