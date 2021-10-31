@@ -25,8 +25,6 @@ class PostController extends Controller
     {
         //$posts = Post::all(); //Gets all posts from DB.
         //dd($posts);
-
-
         Log::channel('abuse')->info("Showing the Blog PAGE by user ".auth()->user()->id);
         $url = URL::temporarySignedRoute('posts', now()->addMinutes(30));
         if (! $request->hasValidSignature()) {
