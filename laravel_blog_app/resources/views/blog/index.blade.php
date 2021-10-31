@@ -12,13 +12,17 @@
 
 @if (session()->has('message')) 
     <div class="w-4/5 m-auto mt-10 pl-2">
-        <p class="w-1/6 mb-4 text-gray-50 bg-green-500 rounded-2xl py-4"> {{session()->get('message')}} </p>
+        <p class="w-1/6 mb-4 text-gray-50 bg-green-500 rounded-1xl py-4"> {{session()->get('message')}} </p>
     </div>
 @endif
 
+<div class="pt-15 <-4/5 m-auto"> 
+    <a href="{{url()->previous()}}" class="bg-blue-300 uppercase font-extrabold rounded-1xl py-3 px-4 text-s"> Back </a>
+</div> <br>
+
 @if (Auth::check())
     <div class="pt-15 <-4/5 m-auto"> 
-        <a href="/blog/create" class="bg-blue-500 uppercase bg-transparent test-gray-100 text-xs font-extrabold py-3 px-5 "> Create a Post </a>
+        <a href="{{ URL::temporarySignedRoute('posts.create', now()->addMinutes(30)) }}" class="bg-blue-500 uppercase bg-transparent test-gray-100 text-xs font-extrabold py-3 px-5 "> Create a Post </a>
     </div>
 @endif
 <br>
@@ -29,7 +33,7 @@
             @if ($post->image_path)
                 <img src="{{asset('images/' . $post->image_path) }}" width="600" alt="post_image"/>
             @else
-                <img src="{{asset('images/613e3aad6f31c-tgregfd-jpg')}}" width="600" alt="post_default_image"/>
+                <img src="{{asset('images/df.jpg')}}" width="600" alt="post_default_image"/>
             @endif
 
             
@@ -43,11 +47,30 @@
 
             <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light"> {{$post->description}} </p>
 
-            <a href="/blog/{{$post->id}}" class="bg-blue-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-lg"> Keep Reading</a>
+            <a href="{{ URL::temporarySignedRoute('posts.show', now()->addMinutes(30), ['id' => $post->id]) }}" class="bg-blue-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-lg"> Keep Reading</a>
+
+            <div class="w-4/5 m-auto pt-20 text-center">
+                @if (!$post->likedBy(auth()->user() ))
+                    <form action="{{ route('posts.likes', $post->id) }}" method="POST" >
+                        @csrf
+                        <button type="submit" class="bg-green-600 hover:bg-green-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-m">Like</button>
+                    </form>
+                @else
+                    <form action="{{ route('posts.likes', $post->id) }}" method="POST"> 
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-600 hover:bg-red-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-m">UnLike</button>
+                    </form>
+                @endif
+                
+                
+                <span>{{$post->likes->count()}} {{Str::plural('like', $post->likes->count()) }}</span>
+            </div>
+
 
             @if (isset(Auth::user()->id) && Auth::user()->id == $post->user->id)
                 <span class="float-right">
-                    <a href="/blog/{{$post->id}}/edit" class="text-gray-700 italic hover:text-gray-900 pb-1 border-b-2">Edit</a> 
+                    <a href="{{ URL::temporarySignedRoute('posts.edit', now()->addMinutes(30), ['id' => $post->id]) }}" class="text-gray-700 italic hover:text-gray-900 pb-1 border-b-2">Edit</a> 
                     
                 </span>
                 <span class="float-right">
