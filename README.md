@@ -122,7 +122,7 @@ Een Admin user kan alle posten bijwerken of verwijderen.
 |Software and Data Integrity Failures| Installeren van Plug-ins en en libraries van onvertrouwde bronnen. | Goed opletten dat plug-ins/libraries van vertrouwde websites/bronnen afkomstig zijn. | Kan impact hebben op heel het programma, afhankelijk waarvoor die plug-in/biblitohteek gebruikt is |
 |Security Logging and Monitoring Failures | App zonder logging systeem. Untracked belangrijke activitieten van de users| Loggen van belangrijke activiteiten. | Authenticatie & Autorisatie mechanisme |
 |Server-Side Request Forgery (SSRF) | Unvalidated User supplied URL  | We valideren alle data die van een user komt.| Local File Inclusion & toegang tot bestanden & toegang tot een service webserver |
-  
+
  [Bron: OWASP Web Application Security Risks](https://owasp.org/www-project-top-ten/)
  
 * Downgrade-attacks en cookie hijacking tegen te gaan
@@ -170,6 +170,15 @@ Een Admin user kan alle posten bijwerken of verwijderen.
      * salted hashing-functie - Bcrypt
          * Hash alle wachtwoorden, zijn hashfuncties waarbij de werkfactor in de loop van de tijd kan worden verhoogd naarmate het processorvermogen toeneem
 
+ ## STRIDE-by-element
+ | BEDREIGING | EIGENDOM VIOLATED | BEDREIGING DEFINITIE
+| :-----: | :-: | :-: |
+|S -> Spoofing identity		|= Athentication		|--- Doen alsof je iets of iemand anders bent dan jezelf|
+|T -> Tampering with data	|= Integrity		|--- Iets wijzigen op schijf, netwerk, geheugen, ...|
+|R -> Repudiation		|= Non-repudiation	|--- Beweren dat je iets niet hebt gedaan of niet verantwoordelijk was|
+|I -> Information disclosure	|= Confidentiality	|--- Informatie verstrekken aan iemand die niet bevoegd is om er toegang toe te krijgen|
+|D -> Denial of service		|= Availability		|--- Exhausting resources die nodig zijn om service te verlenen|
+|E -> Elevation of privilege	|= Authorization		|--- Iemand iets laten doen waartoe hij niet bevoegd is|
   
 # Deployment
 *minimally, this section contains a public URL of the app. A description of how your software is deployed is a bonus. Do you do this manually, or did you manage to automate? Have you taken into account the security of your deployment process?*
