@@ -44,12 +44,41 @@ Als deze acties in een veilige wijze kunnen toegepast worden, waar alle rechten 
 - [ ] Bij het fout invoeren van een wachtwoord moet de user 60seconden wachten.
 - [ ] Als de user ingelogd is kan hij bovenaan rechts zijn profiel foto zien.
 - [ ] Er wordt gevraagd aan de user om de noodzakelijke cookies te accepteren.
+  
+## Gebruikersrollen:
+Administrator heeft toegang tot
+- [ ] In -en uit te loggen
+- [ ] Beheren van gebruikers en de applicatie
+  
+User heeft toegang tot
+- [ ] In -en uit te loggen
+- [ ] Bijwerken van profiel
+- [ ] Wijzigen van wachtwoord
+- [ ] Zoeken naar publieke blog posts
+- [ ] Toevoegen van comments aan publieke blog posts
+- [ ] Toevoegen, wijzigen of verwijderen van eigen blog posts
+- [ ] Publiceren van blog posts
+- [ ] Maken of verwijderen van bloggroep
+ 
+User Group Administrator heeft toegang tot
+- [ ] Alle User rechten
+- [ ] Toevoegen of verwijderen van bestaande of niet-bestaande users aan een bloggroep
+- [ ] Toevoegen, wijzigen of verwijderen van blog posts behorende tot de bloggroep waarvan de user lid is
+  
+User Group Member heeft toegang tot
+- [ ] Alle User rechten
+- [ ] Wijzigen van blog posts behorende tot de bloggroep waarvan de user lid is
+  
+Visitor heeft toegang tot
+- [ ] Maken van een user account
+- [ ] Zoeken naar publieke blog posts
+- [ ] Bekijken van publieke blog posts + comments
 
 ## USER RECHTEN:
 - [ ] Een user kan zijn profiel bekijken.
 - [ ] Een user kan zijn gegevens aanpassen.
 - [ ] Een user kan zijn account verwijderen
-- [ ] Een user kan zijn gegevens exporteren en downloaden in een .CSV file
+- [ ] Een user kan zijn gegevens exporteren en downloaden in een .CSV file.
 - [ ] Een Admin user heeft Full rechten. Kan een post bijwerken of verwijderen indien nodig ook een post aanmaken.
 
 ## PERSOONLIJKE GEGEVENS EN BESCHERMING:
