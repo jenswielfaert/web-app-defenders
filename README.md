@@ -107,7 +107,7 @@ Een Admin user kan alle posten bijwerken of verwijderen.
   
 # Threat model
 *describe your threat model. One or more architectural diagram expected. Also a list of the principal threats and what you will do about them*
-  * Link naar andere Interne/externe [diagrammen](https://github.com/EHB-TI/web-app-defenders/tree/main/Diagrammen.md)
+  * Link naar andere Interne/externe [diagrammen](https://github.com/EHB-TI/web-app-defenders/blob/main/Diagrammen/DIAGRAMMEN.md)
   
  ![External Services architectuur](https://github.com/EHB-TI/web-app-defenders/blob/main/Diagrammen/external%20services%20architectuur.png?raw=true)
   
