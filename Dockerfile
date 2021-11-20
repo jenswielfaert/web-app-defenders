@@ -17,4 +17,5 @@ COPY composer.json .
 RUN composer install --no-scripts
 COPY . .
 
+EXPOSE 8080
 CMD php artisan serve --host=0.0.0.0
