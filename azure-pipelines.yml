@@ -10,7 +10,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '013e3b0b-bfdd-4198-8fcd-dcd2b382ebd3'
+  dockerRegistryServiceConnection: '8418b771-7141-42ef-be75-57ec7354a0a2'
   imageRepository: 'ehbblogapp'
   containerRegistry: 'defendersehbregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
@@ -35,6 +35,6 @@ stages:
         includeLatestTag: true
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection
+        containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
