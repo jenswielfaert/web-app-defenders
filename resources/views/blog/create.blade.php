@@ -23,7 +23,13 @@
         </ul>
     </div>
 @endif
-<div class="w-4/5 m-auto pt-20">
+
+<!-- <div id="toolbar">
+    <button class="ql-bold">Bold</button>
+    <button class="ql-italic">Italic</button>
+</div> -->
+
+<div id="editor">
     <form action="/blog" method="POST" enctype="multipart/form-data">
         @csrf
 
@@ -38,4 +44,6 @@
     </form>
 </div>
 
+<script src="{{asset('js/quill-custom.js')}}"></script>
 @endsection
+

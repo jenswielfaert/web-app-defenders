@@ -14,7 +14,13 @@
     
     <!-- Styles -->
     <link href=" {{ asset('css/tailwind.css') }}" rel="stylesheet">
-    <link href=" {{ asset('css/app.css') }}" rel="stylesheet"> 
+    <link href=" {{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Quill stylesheet -->
+    <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+
+    <!-- Quill library -->
+    <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
     <div id="app">
