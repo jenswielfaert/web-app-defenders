@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Interfaces\Likeable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -86,4 +87,25 @@ class User extends Authenticatable
             ->whereHas('user', fn($m) =>  $m->whereId($this->id))
             ->exists();
     }
+
+    public function hasRole(string $role): bool
+    {
+        return $this->roles->where('name', $role)->isNotEmpty();
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasRole(Role::ROLE_ADMIN);
+    }
+
+    public function isEditor(): bool
+    {
+        return $this->hasRole(Role::ROLE_EDITOR);
+    }
+
+    public function roles(): belongsToMany
+    {
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
 }
