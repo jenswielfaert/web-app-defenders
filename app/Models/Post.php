@@ -2,25 +2,41 @@
 
 namespace App\Models;
 
+use App\Models\Interfaces\Likeable;
+use App\Models\Traits\Likes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-class Post extends Model
+class Post extends Model implements Likeable
 {
-    protected $fillable = ['title', 'slug' ,'description', 'image_path', 'user_id' ];
-    use HasFactory;
-   
+    use Likes, HasFactory;
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    protected $fillable = ['title', 'content', 'posted_at', 'auhtor_id', 'thumbnail_id'];
+
+    /**
+     * @var array
+     */
+    protected $dates = [
+        'posted_at'
+    ];
+
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function likes(){
-        return $this->hasMany(Likes::class);
+    public function thumbnail(): BelongsTo
+    {
+        return $this->belongsTo(Image::class);
     }
 
-    public function LikedBy(User $user){
-        return $this->likes->contains('user_id', $user->id);
+    public function comments(): HasMany
+    {
+        return $this->HasMany(Comment::class);
+    }
+
+    public function hasThumbnail(): bool
+    {
+        return filled($this->thumbnail_id);
     }
 }

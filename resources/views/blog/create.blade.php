@@ -24,19 +24,14 @@
     </div>
 @endif
 
-<!-- <div id="toolbar">
-    <button class="ql-bold">Bold</button>
-    <button class="ql-italic">Italic</button>
-</div> -->
-
 <div id="editor">
     <form action="/blog" method="POST" enctype="multipart/form-data">
         @csrf
 
         <input type="text" name="title" placeholder="Title..." class="bg-transparent py-20 block border-b-2 w-full h-60 text-xl outline-border">
-        <textarea name="description" placeholder="Description..." class=" py-20 bg-transparent block border-b-2 w-full h-60 text-xl outline-border"> </textarea>
+        <textarea name="description" placeholder="Description..." class=" py-20 bg-transparent block border-b-2 w-full h-60 text-xl outline-border"></textarea>
         <div class="bg-grey-lighter pt-15">
-            <label class="w-44 flex flex-col items-center px-2 py-3 bg-white-rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer">
+            <label class="w-44 flex flex-col items-center px-2 py-3 bg-white-rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer"></label>
             <span class="mt-2 text-base leading-normal"> Select a file </span>
             <input type="file" class="hidden" name="image" accept=".png, .jpg, .jpeg">
         </div><br>
