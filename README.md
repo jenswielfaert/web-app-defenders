@@ -1,6 +1,6 @@
 ## Bladwijzers
 * [Diagrammen](https://github.com/EHB-TI/web-app-defenders/blob/main/Diagrammen/DIAGRAMMEN.md)
-* [Website URL (www.ehbdefendersblog.com)](ehbdefendersblog.com)
+* [Website URL (www.ehbdefendersblog.com)](https://ehbdefendersblog.com)
 
 # Doelstelling
 *Leg kort uit hoe deze webapp omzet zal maken of iets kan vergemakkelijken in het dagdagelijkse leven van zijn gebruikers.*
