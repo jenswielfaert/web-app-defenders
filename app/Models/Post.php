@@ -6,12 +6,16 @@ use App\Models\Interfaces\Likeable;
 use App\Models\Traits\Likes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Post extends Model implements Likeable
 {
     use Likes, HasFactory;
 
-    protected $fillable = ['title', 'content', 'posted_at', 'auhtor_id', 'thumbnail_id'];
+    protected  $table = "posts";
+
+    protected $fillable = ['title', 'content', 'posted_at', 'published', 'author_id', 'thumbnail_id'];
 
     /**
      * @var array
@@ -25,9 +29,14 @@ class Post extends Model implements Likeable
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    public function isPublished(): bool
+    {
+        return filled($this->published);
+    }
+
     public function thumbnail(): BelongsTo
     {
-        return $this->belongsTo(Image::class);
+        return $this->belongsTo(Image::class, 'thumbnail_id');
     }
 
     public function comments(): HasMany

@@ -9,6 +9,8 @@ class Image extends Model
 {
     use HasFactory;
 
+    protected $table = "images";
+
     /**
      * The attributes that are mass assignable.
      *

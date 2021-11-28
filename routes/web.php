@@ -16,8 +16,9 @@ use App\Http\Controllers\PostLikeController;
 |
 */
 
+Auth::routes(['verify' => true]);
 
-Auth::routes();
+
 
 Route::get('/', [PagesController::class, 'index'])->name('index');
 

@@ -13,7 +13,7 @@ class PostController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware(['auth', 'verified'], ['except' => ['index', 'show']]);
     }
 
     /**
@@ -33,7 +33,7 @@ class PostController extends Controller
         else{
             return view("blog.index")->with('posts', Post::orderBy('updated_at', 'DESC')->get())->with($url);
         }
-        
+
     }
 
     /**
@@ -51,7 +51,7 @@ class PostController extends Controller
         else{
             return view('blog.create')->with('info', 'Please Login first');
         }
-    
+
 
     }
 
@@ -101,7 +101,7 @@ class PostController extends Controller
         else{
             return view('blog.show', compact('post'));
         }
-        
+
     }
 
     /**
@@ -143,7 +143,7 @@ class PostController extends Controller
 
         $actualPost = Post::find($request->id);
         $request->image->move(public_path('images'), $UpdatednewImageName);
-     
+
         $actualPost->title = $request->input('title');
         $actualPost->description = $request->input('description');
         //$actualPost->user->id = $request->Auth::user()->id;
