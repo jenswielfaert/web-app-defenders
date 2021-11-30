@@ -23,7 +23,7 @@
     </span>
     <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light"> {{$post->description}}</p>
     <span class="font-bold italic text-gray-500 text-sm">
-        {{ $post->likes->count()}} {{Str::plural('like', $post->likes->count())  }}
+        {{ $post->likes->count()}} {{Str::plural('like', $post->likes->count())}}
     </span>
 </div>
 

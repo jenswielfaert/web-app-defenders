@@ -7,6 +7,8 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -21,6 +23,19 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getpostsbyid($id){
+        $post = Post::where('id', $id)->first();
+        return response()->json($post);
+    }
+
+    public function getposts(){
+        $posts = Post::all();
+        return response()->json($posts);
+    }
+
+
+
     public function index(Request $request)
     {
         //$posts = Post::all(); //Gets all posts from DB.
@@ -28,7 +43,7 @@ class PostController extends Controller
         Log::channel('abuse')->info("Showing the Blog PAGE by user ".auth()->user()->id);
         $url = URL::temporarySignedRoute('posts', now()->addMinutes(30));
         if (! $request->hasValidSignature()) {
-            return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
+            return redirect()->route('index'); // ->with('info', 'Please use the navigation bar to navigate !')
         }
         else{
             return view("blog.index")->with('posts', Post::orderBy('updated_at', 'DESC')->get())->with($url);
@@ -46,7 +61,7 @@ class PostController extends Controller
         Log::channel('abuse')->info("create blog page is called by user ". auth()->user()->id);
         if (! $request->hasValidSignature()) {
             //abort(401);
-            return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
+            return redirect()->route('index'); // ->with('info', 'Please use the navigation bar to navigate !')
         }
         else{
             return view('blog.create')->with('info', 'Please Login first');
@@ -63,6 +78,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $dateS = Carbon::now()->startOfMonth()->subMonth(1);
+        $dateE = Carbon::now();
+ 
+        $posts = Post::all()->whereBetween('created_at',[$dateS, $dateE]);
+
         $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -81,7 +101,7 @@ class PostController extends Controller
             'user_id' => auth()->user()->id
         ]);
         Log::channel('abuse')->info("Creating the Post With title ".$request->input('title'). " by user", ['user_id' => $request->user()->id]);
-        return redirect('/blog')->with('message', 'Your Post has been added!');
+        return redirect()->route('posts.store', compact('posts'))->with('info', 'Your Post has been added!');
     }
 
     /**

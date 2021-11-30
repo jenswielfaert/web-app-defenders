@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+
 @include('cookie-consent::index')
 @if (session()->has('info')) 
     <div class="w-4/5 m-auto mt-10 pl-2">
-        <p class="w-3/6 mb-4 text-gray-40 text-center bg-yellow-300 rounded-1xl py-4"> {{session()->get('info')}} </p>
+        <p class="w-3/6 mb-4 text-gray-40 text-center bg-yellow-300 rounded-1xl py-4"> {{session::get('info')}} </p>
     </div>
 @endif
 
@@ -42,9 +43,27 @@
 </div>
 
 <div class="text-center py-16">
-    <span class="uppercase text-s text-gray-400"> Blog </span>
+   
     <h2 class="tet-2xl pb-6 text-xl"> Recent posts </h2>
-    <p class="m-auto w-4/5 text-gray-500"> Lorem ipsum dolor sit amet, consectetur adipisicing elit </p>
+
+
+    <a href="{{URL::temporarySignedRoute('posts', now()->addMinutes(30))}}" class="uppercase bg-blue-500 text-gray-100 text-s font-extrabold py-3 px-8 rounded-3xl"> Go To Blog Page </a> <br>
+    <hr style="width:50%;text-align:left;margin-left:0; color:gray;background-color:gray"> <br>
+        @forelse ($posts as $post)
+        <br>
+            <h2 class="text-gray-700 font-bold text-5xl pb-4"> {{$post->title}} </h2>
+            <span class="text-gray-700">  </span>
+             By <span class="font-bold italic text-gray-700"> {{$post->user->name}}  {{date('jS M Y', strtotime($post->updated_at)) }} </span>
+             <hr style="width:100%;text-align:left;margin-left:0; color:black;background-color:gray"> 
+        @empty
+        <p> NO RECENT POSTS </p>
+        @endforelse
+   
+   
+
+
+
+    <p class="m-auto w-4/5 text-gray-500">  </p>
 </div>
 
 <div class="sm:grid grid-cols-2 w-4/5 m-auto">
