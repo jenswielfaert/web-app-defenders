@@ -25,9 +25,8 @@ class UserPageController extends Controller
 
     public function index(Request $request)
     {
-
         $userid = Auth::id();
-        $userposts = DB::table('posts')->where('user_id', auth()->id())->get();
+        $userposts = DB::table('posts')->where('author_id', auth()->id())->get();
 
         Log::channel('abuse')->info("Showing the users profile PAGE by user ".auth()->user()->id);
         //dd($userposts);
@@ -57,7 +56,7 @@ class UserPageController extends Controller
 
         $user->name = $dataform->name;
         $user->email = $dataform->email;
-        $user->save(); 
+        $user->save();
 
         $user = Auth::user();
         return redirect('/userpage')->with('Success', "updated successfully");
@@ -73,13 +72,13 @@ class UserPageController extends Controller
         }
         else{
             return redirect('/')-with('info', 'Please Login');
-        }   
+        }
     }
 
     public function getdata(){
         //dd(Auth::user());
         $userposts = Post::all()->where('user_id', Auth::user()->id);
-        Mail::to('test@test.com')->send(new GetMyDataMail());
+        Mail::to(Auth::user()->email)->send(new GetMyDataMail());
 
         return view('user.userhome', compact('userposts'))
         ->with('info', 'Your data has been send to your email address '.Auth::user()->email);

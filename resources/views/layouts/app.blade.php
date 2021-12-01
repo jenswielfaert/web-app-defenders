@@ -11,10 +11,19 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    
+
     <!-- Styles -->
     <link href=" {{ asset('css/tailwind.css') }}" rel="stylesheet">
-    <link href=" {{ asset('css/app.css') }}" rel="stylesheet"> 
+    <link href=" {{ asset('css/unreset.css') }}" rel="stylesheet">
+    <link href=" {{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Quill stylesheet -->
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+
+    <!-- Main Quill library -->
+    <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
     <div id="app">
@@ -30,17 +39,21 @@
                     <!-- <a class="no-underline hover:underline" href="/blog"> Blog </a> -->
 
                     @if (Auth::Check())
-                    <a class="no-underline hover:underline" href="{{ URL::temporarySignedRoute('posts', now()->addMinutes(30)) }}"> Blog </a> 
+                    <a class="no-underline hover:underline" href="{{ URL::temporarySignedRoute('posts.index', now()->addMinutes(30)) }}"> Blog </a>
                     @else
-                    <a disabled class="no-underline hover:underline"  href="{{ route('register') }}"> Blog </a> 
+                    <a disabled class="no-underline hover:underline"  href="{{ route('register') }}"> Blog </a>
                     @endif
 
                     @if (Auth::Check())
-                    <a class="no-underline hover:underline" href="/userpage"> MyProfile </a> 
-                    @else
-                    
+                        <a class="no-underline hover:underline" href="{{ URL::temporarySignedRoute('posts.workspace', now()->addMinutes(30)) }}">Workspace</a>
                     @endif
-                    
+
+                    @if (Auth::Check())
+                        <a class="no-underline hover:underline" href="/userpage"> MyProfile </a>
+                    @else
+
+                    @endif
+
                     @guest
                         <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
                         @if (Route::has('register'))
@@ -60,14 +73,14 @@
                 </nav>
             </div>
         </header>
-        <div> 
+        <div>
             @yield('content')
         </div>
 
-        <div> 
+        <div>
             @include('layouts.footer')
         </div>
-        
+
     </div>
 </body>
 </html>

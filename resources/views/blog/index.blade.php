@@ -2,86 +2,53 @@
 
 @section('content')
 
-<div class=" w-4/5 m-auto text-center">
-    <div class="py-16 border-b border-gray-200">
-        <h1 class="text-6xl">
-            Blog Posts
-        </h1>
-    </div>
-</div>
-
-@if (session()->has('message')) 
-    <div class="w-4/5 m-auto mt-10 pl-2">
-        <p class="w-1/6 mb-4 text-gray-50 bg-green-500 rounded-1xl py-4"> {{session()->get('message')}} </p>
-    </div>
-@endif
-
-<div class="pt-15 <-4/5 m-auto"> 
-    <a href="{{url()->previous()}}" class="bg-blue-300 uppercase font-extrabold rounded-1xl py-3 px-4 text-s"> Back </a>
-</div> <br>
-
-@if (Auth::check())
-    <div class="pt-15 <-4/5 m-auto"> 
-        <a href="{{ URL::temporarySignedRoute('posts.create', now()->addMinutes(30)) }}" class="bg-blue-500 uppercase bg-transparent test-gray-100 text-xs font-extrabold py-3 px-5 "> Create a Post </a>
-    </div>
-@endif
-<br>
-@foreach ($posts as $post)
-    <br>
-    <div class="sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-15 border-b border-gray-200">
-        <div>
-            @if ($post->image_path)
-                <img src="{{asset('images/' . $post->image_path) }}" width="600" alt="post_image"/>
-            @else
-                <img src="{{asset('images/df.jpg')}}" width="600" alt="post_default_image"/>
-            @endif
-
-            
+    <div class=" w-4/5 m-auto text-center">
+        <div class="py-16 border-b border-gray-200">
+            <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">Blog Feed</h1>
         </div>
-
-        <div>
-            <h2 class="text-gray-700 font-bold text-5xl pb-4"> {{$post->title}} </h2>
-            <span class="text-gray-700"> 
-                By <span class="font-bold italic text-gray-700"> {{$post->user->name}}  {{date('jS M Y', strtotime($post->updated_at)) }} </span> 
-            </span>
-
-            <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light"> {{$post->description}} </p>
-
-            <a href="{{ URL::temporarySignedRoute('posts.show', now()->addMinutes(30), ['id' => $post->id]) }}" class="bg-blue-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-lg"> Keep Reading</a>
-
-            <div class="w-4/5 m-auto pt-20 text-center">
-                @if (!$post->likedBy(auth()->user() ))
-                    <form action="{{ route('posts.likes', $post->id) }}" method="POST" >
-                        @csrf
-                        <button type="submit" class="bg-green-600 hover:bg-green-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-m">Like</button>
-                    </form>
-                @else
-                    <form action="{{ route('posts.likes', $post->id) }}" method="POST"> 
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="bg-red-600 hover:bg-red-500 uppercase font-extrabold rounded-3xl py-4 px-8 text-m">UnLike</button>
-                    </form>
-                @endif
-                
-                
-                <span>{{$post->likes->count()}} {{Str::plural('like', $post->likes->count()) }}</span>
+    </div>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        @if (session()->has('message'))
+            <div class="bg-green-100 border-t border-b border-green-500 text-green-700 px-4 py-3" role="alert">
+                <p class="font-bold">Message</p>
+                <p class="text-sm">{{session()->get('message')}} </p>
             </div>
+        @endif
+        <div class="mt-6 mb-4">
+            <p class="text-base md:text-sm text-blue-500 font-bold">&lt <a href="{{route('index')}}" class="text-base md:text-sm text-blue-500 font-bold no-underline hover:underline">HOME</a></p>
+        </div><br>
+    </div>
+    <br>
 
 
-            @if (isset(Auth::user()->id) && Auth::user()->id == $post->user->id)
-                <span class="float-right">
-                    <a href="{{ URL::temporarySignedRoute('posts.edit', now()->addMinutes(30), ['id' => $post->id]) }}" class="text-gray-700 italic hover:text-gray-900 pb-1 border-b-2">Edit</a> 
-                    
-                </span>
-                <span class="float-right">
-                    <form method="POST" action="/blog/{{$post->id}}">
-                        @csrf
-                        @method('delete')
-                        <button class="text-red-500 pr-3" type="submit">Delete</button>
-                    </form>
-                </span>
-            @endif
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                @foreach ($posts as $post)
+                    <div class="grid grid-cols-1 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-4 mt-8 mb-8">
+                        <div class="col-span-2 sm:col-span-1 xl:col-span-1">
+{{--                            @if ($post->image_path)--}}
+{{--                                <img src="{{asset('images/' . $post->image_path) }}" width="600" alt="post_image"/>--}}
+{{--                            @else--}}
+                                <img src="{{asset('images/df.jpg')}}" width="600" alt="post_default_image"/>
+{{--                            @endif--}}
+                        </div>
+                        <div class="col-span-2 sm:col-span-4 xl:col-span-4">
+                            <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{{$post->title}}</h2>
+                            <p class="leading-relaxed">{{Helper::ellipse(strip_tags(html_entity_decode($post->content)))}}</p>
+                            <span class="font-semibold title-font text-gray-700">{{$post->likes->count()}} {{Str::plural('like', $post->likes->count()) }}</span>
+                            <span class="mt-1 text-gray-500 text-sm">Last Edited On {{$post->updated_at}}</span>
+                            <a href="{{ URL::temporarySignedRoute('posts.show', now()->addMinutes(30), ['id' => $post->id]) }}" class="text-blue-500 inline-flex items-center mt-4">Keep Reading
+                                <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 12h14"></path>
+                                    <path d="M12 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            <span>
+                {!! $posts->render() !!}
+            </span>
         </div>
     </div>
-@endforeach
 @endsection
