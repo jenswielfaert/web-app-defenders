@@ -48,7 +48,7 @@ Route::get('/userpage', [\App\Http\Controllers\UserPageController::class, 'index
 
 Route::get('/userpage/{userid}', [\App\Http\Controllers\UserPageController::class, 'edit'])->name('User.edit');
 
-Route::patch('/userpage/{userid}', [UserPageController::class, 'update'])->middleware('auth')->name('editprofile');
+Route::put('/userpage/{userid}', [UserPageController::class, 'update'])->middleware('auth')->name('editprofile');
 
 Route::delete('/userpage/{userid}', [UserPageController::class, 'delete'])->middleware('auth')->name('deleteprofile');
 

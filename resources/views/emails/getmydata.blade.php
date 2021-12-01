@@ -1,4 +1,4 @@
-<h1> TEST MAIL </h1>
+<h1> USER DATA REQUEST for user {{Auth::user()->name}} </h1>
 
 <?php
 $userposts = DB::table('posts')->where('user_id', Auth::user()->id)->get();
