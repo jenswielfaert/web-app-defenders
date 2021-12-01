@@ -6,6 +6,13 @@
     <div class="flex">
         <div class="w-full">
 
+            <div class="text-center py-16">
+                <span class="uppercase text-4xl font-extrabold text-gray-600"> WELCOME to BLOGAPP</span>
+                <h2 class=" text-2xl font-extrabold text-gray-600">It is a place to Write, Read and Like </h2>
+                <img src="https://raitech.co.tz/assets/img/web.jpg" width="600" alt=""/>
+                <p class=" text-2xl font-extrabold text-gray-600">It is easy and free to post your story on any topic and connect with millions of readers</p>
+            </div>
+
             <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
 
                 <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
