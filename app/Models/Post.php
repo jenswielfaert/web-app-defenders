@@ -61,6 +61,14 @@ class Post extends Model implements Likeable
         return filled($this->thumbnail_id);
     }
 
+    public function likess(){
+        return $this->hasMany(likes::class);
+    }
+
+    public function likedBy(User $user){
+        return $this->likes->contains('user_id', $user->id);
+    }
+
     public function editors(): BelongsToMany
     {
         return $this->belongsToMany(

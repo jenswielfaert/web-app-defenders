@@ -26,6 +26,7 @@ class UserPageController extends Controller
     public function index(Request $request)
     {
         $userid = Auth::id();
+        //$userposts = Auth::user()->posts()->get();
         $userposts = DB::table('posts')->where('author_id', auth()->id())->get();
 
         Log::channel('abuse')->info("Showing the users profile PAGE by user ".auth()->user()->id);

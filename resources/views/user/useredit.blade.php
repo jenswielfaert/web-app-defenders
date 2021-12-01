@@ -47,7 +47,9 @@
     </div>
     </form>
     <br>
-     <a href="{{route('user.getdata')}}"> <button class="mt-15 bg-blue-500 text-gray-100 text-lg py-4 px-8 rounded-3xl" type="submit">Get My Data</button> </a>
+
+     <a href="{{url('userpage/data/'.$user->id) }}"> <button class="mt-15 bg-blue-500 text-gray-100 text-lg py-4 px-8 rounded-3xl" type="submit">Get My Data</button> </a>
+
         <form action="{{ url('userpage/'.$user->id) }}" name="editprofile" method="POST">
             <div class="container">
                 @csrf

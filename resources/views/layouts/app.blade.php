@@ -49,7 +49,7 @@
                     @endif
 
                     @if (Auth::Check())
-                        <a class="no-underline hover:underline" href="/userpage"> MyProfile </a>
+                        <a class="no-underline hover:underline" href="{{route('user.page.index')}}"> MyProfile </a>
                     @else
 
                     @endif

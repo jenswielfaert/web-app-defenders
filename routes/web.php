@@ -69,13 +69,13 @@ Route::delete('/blog/{id}', [PostController::class, 'destroy'])->middleware('aut
 
 Route::post('/blog/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
 
-Route::delete('/blog/{post}/likes', [PostLikeController::class, 'destroy']);
-    //->name('posts.likes');
+Route::delete('/blog/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes.delete');
+    
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
-Route::get('/userpage', [UserPageController::class, 'index'])->name('User.page');
+Route::get('/userpage', [UserPageController::class, 'index'])->name('user.page.index');
 
 Route::get('/userpage/{userid}', [UserPageController::class, 'edit'])->name('User.edit');
 
@@ -83,7 +83,7 @@ Route::put('/userpage/{userid}', [UserPageController::class, 'update'])->middlew
 
 Route::delete('/userpage/{userid}', [UserPageController::class, 'delete'])->middleware('auth')->name('deleteprofile');
 
-Route::get('/userpage', [UserPageController::class, 'getdata'])->name('user.getdata')->middleware('auth');
+Route::get('/userpage/data/{user_id}', [UserPageController::class, 'getdata'])->name('user.getdata')->middleware('auth');
 
 //Route::get('/api/getposts', [\App\Http\Controllers\PostController::class, 'getposts'])->name('getposts');
 //Route::get('/api/getposts/{id}', [\App\Http\Controllers\PostController::class, 'getpostsbyid'])->name('getpostsbyid');

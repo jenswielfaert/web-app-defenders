@@ -10,7 +10,7 @@ class PostLikeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+    $this->middleware(['auth' /*, 'verified' */]);
     }
 
     public function store(Post $post, Request $request)
@@ -25,6 +25,7 @@ class PostLikeController extends Controller
     public function destroy(Post $post, Request $request)
     {
         $request->user()->likes()->where('post_id', $post->id)->delete();
+        
         Log::channel('abuse')->info("Unliking the post with ID ".$post->id." by user", ['user_id' => $request->user()->id]);
         return back();
     }

@@ -60,7 +60,7 @@ class PostController extends Controller
     public function workspace(Request $request)
     {
         $posts = auth()->user()->posts();
-
+        
         Log::channel('abuse')->info("Showing the Blog PAGE by user ".auth()->user()->id);
         $url = URL::temporarySignedRoute('posts.workspace', now()->addMinutes(30));
         if (! $request->hasValidSignature()) {

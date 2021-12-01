@@ -9,7 +9,11 @@ class Like extends Model
 {
     use HasFactory;
 
+    //Second version
     protected  $table = "likes";
+    protected $fillable = [
+        'user_id'
+    ];
 
     public function user()
     {
