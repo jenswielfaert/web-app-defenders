@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
+use App\Http\Controllers\UserPageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,4 +42,18 @@ Route::post('/blog/{post}/likes', [PostLikeController::class, 'store'])->name('p
 Route::delete('/blog/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes');
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/userpage', [\App\Http\Controllers\UserPageController::class, 'index'])->name('User.page');
+
+Route::get('/userpage/{userid}', [\App\Http\Controllers\UserPageController::class, 'edit'])->name('User.edit');
+
+Route::patch('/userpage/{userid}', [UserPageController::class, 'update'])->middleware('auth')->name('editprofile');
+
+Route::delete('/userpage/{userid}', [UserPageController::class, 'delete'])->middleware('auth')->name('deleteprofile');
+
+Route::get('/userpage', [UserPageController::class, 'getdata'])->name('user.getdata')->middleware('auth');
+
+//Route::get('/api/getposts', [\App\Http\Controllers\PostController::class, 'getposts'])->name('getposts');
+//Route::get('/api/getposts/{id}', [\App\Http\Controllers\PostController::class, 'getpostsbyid'])->name('getpostsbyid');
 

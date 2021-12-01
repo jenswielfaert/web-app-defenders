@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'slug' ,'description', 'image_path', 'user_id' ];
+    protected $fillable = ['title', 'slug' ,'description', 'image_path', 'user_id', 'updated_at' ];
     use HasFactory;
    
 
@@ -23,4 +23,5 @@ class Post extends Model
     public function LikedBy(User $user){
         return $this->likes->contains('user_id', $user->id);
     }
+
 }

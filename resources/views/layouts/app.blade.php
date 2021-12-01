@@ -34,6 +34,12 @@
                     @else
                     <a disabled class="no-underline hover:underline"  href="{{ route('register') }}"> Blog </a> 
                     @endif
+
+                    @if (Auth::Check())
+                    <a class="no-underline hover:underline" href="/userpage"> MyProfile </a> 
+                    @else
+                    
+                    @endif
                     
                     @guest
                         <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
