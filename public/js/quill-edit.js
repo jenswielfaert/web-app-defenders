@@ -29,12 +29,13 @@ function sanitize(string) {
     return string.replace(reg, (match)=>(map[match]));
 }
 
-
 window.onload = () => {
     console.log("Script loading");
 
     const form = document.getElementById('form');
     const content = document.getElementById('content');
+
+    editor.root.innerHTML = content.value;
 
     form.onsubmit = (event) => {
         content.value = sanitize(editor.root.innerHTML);

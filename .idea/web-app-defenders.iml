@@ -131,5 +131,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="quill.snow" level="application" />
+    <orderEntry type="library" name="quill.bubble" level="application" />
+    <orderEntry type="library" name="quill" level="application" />
   </component>
 </module>

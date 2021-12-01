@@ -18,13 +18,14 @@ class CreatePostsTable extends Migration
 
             $table->integer('author_id')->unsigned();
 
-            $table->integer('thumbnail_id')->unsigned();
+            $table->integer('thumbnail_id')->unsigned()->nullable();
 
             $table->string('title');
             $table->longText('content');
-            $table->boolean('published')->default(0)->change();
+            $table->string('slug');
+            $table->boolean('published')->default(0);
 
-            $table->datetime('posted_at');
+            $table->timestamp('posted_at');
             $table->timestamps();
         });
 

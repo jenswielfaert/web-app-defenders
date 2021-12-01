@@ -43,12 +43,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function user(){
-        return $this->hasMany(Post::class);
-    }
-
-
     public function likes(){
         return $this->hasMany(Like::class);
     }
@@ -109,6 +103,24 @@ class User extends Authenticatable implements MustVerifyEmail
     public function roles(): belongsToMany
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    public function posts(): belongsToMany
+    {
+        return $this->belongsToMany(
+            Post::class,
+            'posts_users',
+            'editor_id',
+            'post_id');
+    }
+
+    public function getAllPosts(){
+        $posts = $this->posts()->get();
+        $authorPosts = Post::where('author_id', $this->id)->get();
+
+        $allPosts = $posts->concat($authorPosts);
+
+        return $allPosts;
     }
 
 }

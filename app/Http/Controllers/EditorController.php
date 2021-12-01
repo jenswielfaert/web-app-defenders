@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Models\Comment;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\URL;
 
-class CommentController extends Controller
+class EditorController extends Controller
 {
     public function __construct()
     {
         $this->middleware(['auth', 'verified'], ['except' => ['index', 'show']]);
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -41,26 +39,9 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $post_id)
+    public function store(Request $request)
     {
-        $request->validate(['content' => 'required']);
-
-        $post = Post::find($post_id);
-        $user = auth()->user();
-
-        $comment = Comment::create([
-            'content' => htmlspecialchars($request->input('content')),
-            'author_id' => $user->id,
-            'post_id' => $post->id
-        ]);
-
-        $url = URL::temporarySignedRoute('posts.workspace', now()->addMinutes(30));
-        if (! $request->hasValidSignature()) {
-            return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
-        }
-        else{
-            return redirect()->back()->with('message','Operation Successful !')->with($url);
-        }
+        //
     }
 
     /**
@@ -99,15 +80,17 @@ class CommentController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $comment = Comment::find($id);
-        $comment->delete();
-        Log::channel('abuse')->info("DELETING the Comment With id ".$id. " by user", ['user_id' => auth()->user()->id]);
-        return redirect()->back()->with('status','Comment Deleted Successfully');
+        $post = Post::find($id);
+        $editor = User::where('email', $request->input('email'))->first();
+        $post->editors()->detach($editor->id);
+
+        Log::channel('abuse')->info("Removing the Editor With email ".$editor->email. " by user", ['user_id' => auth()->user()->id]);
+        return redirect()->back()->with('status','Editor Removed Successfully');
     }
 }

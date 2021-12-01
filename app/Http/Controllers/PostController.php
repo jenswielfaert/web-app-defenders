@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
@@ -23,18 +23,40 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        //$posts = Post::all(); //Gets all posts from DB.
-        //dd($posts);
+        $posts =  Post::orderBy('updated_at', 'DESC')->paginate(6);
+
+        $posts->withPath($request->fullUrlWithoutQuery('page'));
+
         Log::channel('abuse')->info("Showing the Blog PAGE by user ".auth()->user()->id);
-        $url = URL::temporarySignedRoute('posts', now()->addMinutes(30));
+        $url = URL::temporarySignedRoute('posts.workspace', now()->addMinutes(30));
+        //if (! $request->hasValidSignature()) {
+          //  return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
+        //}
+      //  else{
+            return view("blog.index")->with('posts', $posts)->with($url);
+        //}
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function workspace(Request $request)
+    {
+        $posts = auth()->user()->posts();
+
+        Log::channel('abuse')->info("Showing the Blog PAGE by user ".auth()->user()->id);
+        $url = URL::temporarySignedRoute('posts.workspace', now()->addMinutes(30));
         if (! $request->hasValidSignature()) {
             return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
         }
         else{
-            return view("blog.index")->with('posts', Post::orderBy('updated_at', 'DESC')->get())->with($url);
+            return view("blog.workspace")->with('posts', $posts->orderBy('updated_at', 'DESC')->get())->with($url);
         }
-
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -63,23 +85,28 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
+        $user = auth()->user();
+
         $request->validate([
             'title' => 'required',
-            'description' => 'required',
-            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+            'content' => 'required',
         ]);
 
-        $newImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
+        //$newImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
 
-        $request->image->move(public_path('images'), $newImageName);
+        //$request->image->move(public_path('images'), $newImageName);
 
-        Post::create([
+
+        $post = Post::create([
             'title'=> $request->input('title'),
             'slug'=> Str::random(5),
-            'description' => $request->input('description'),
-            'image_path' => $newImageName,
-            'user_id' => auth()->user()->id
+            'content' => $request->input('content'),
+          //  'image_path' => $newImageName,
+            'author_id' => $user->id
         ]);
+
+        $user->posts()->attach($post);
         Log::channel('abuse')->info("Creating the Post With title ".$request->input('title'). " by user", ['user_id' => $request->user()->id]);
         return redirect('/blog')->with('message', 'Your Post has been added!');
     }
@@ -93,14 +120,45 @@ class PostController extends Controller
     public function show(Request $request, $id)
     {
         $post = Post::where('id', $id)->first();
+        $comments = $post->comments()->paginate(5);
         Log::channel('abuse')->info("SHOWING the Post With ID ".$id. " by user", ['user_id' => auth()->user()->id]);
-        if (! $request->hasValidSignature()) {
-            //abort(401);
-            return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
-        }
-        else{
-            return view('blog.show', compact('post'));
-        }
+        $comments->withPath($request->fullUrlWithoutQuery('page'));
+        $url = URL::temporarySignedRoute('posts.workspace', now()->addMinutes(30));
+//        if (! $request->hasValidSignature()) {
+//            echo "hello";
+//            //abort(401);
+//           return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
+//        }
+//        else{
+            return view('blog.show', compact('post', 'comments'));
+//        }
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editors(Request $request, $id)
+    {
+
+        $post = Post::where('id', $id)->first();
+
+        // pending editors
+        $invites = $post->invites()->get();
+
+        // non-pending editors
+        $editors = $post->editors()->get();
+//        if (! $request->hasValidSignature()) {
+//            echo "hello";
+//            //abort(401);
+//           // return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
+//        }
+//        else{
+         return view('blog.editors', compact('post', 'invites', 'editors'));
+//        }
 
     }
 
@@ -114,13 +172,13 @@ class PostController extends Controller
     {
         $post = Post::where('id', $id)->first();
         Log::channel('abuse')->info("EDITING the Post With id ".$id. " by user", ['user_id' => auth()->user()->id]); //Logging
-        $url = URL::temporarySignedRoute('posts', now()->addMinutes(30));
+        $url = URL::temporarySignedRoute('posts.workspace', now()->addMinutes(30));
         if (! $request->hasValidSignature()) {
             //abort(401);
             return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
         }
         else{
-            return view('blog.edit', compact('post'));
+            return view('blog.edit', compact('post'))->with($url);
         }
     }
 
@@ -133,23 +191,23 @@ class PostController extends Controller
      */
     public function update(Request $request)
     {
-        $UpdatednewImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
+       // $UpdatednewImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
 
         $request->validate([
             'title' => 'required',
-            'description' => 'required',
-            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+            'content' => 'required',
+           // 'image' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]);
 
         $actualPost = Post::find($request->id);
-        $request->image->move(public_path('images'), $UpdatednewImageName);
+       // $request->image->move(public_path('images'), $UpdatednewImageName);
 
         $actualPost->title = $request->input('title');
-        $actualPost->description = $request->input('description');
+        $actualPost->content = $request->input('content');
         //$actualPost->user->id = $request->Auth::user()->id;
-        $actualPost->image_path = $UpdatednewImageName;
+       // $actualPost->image_path = $UpdatednewImageName;
         $actualPost->update();
-        Log::channel('abuse')->info("UPDATING the Post With Title ".$request->input('title'). " by user", ['user_id' => $request->user()->id]);
+        Log::channel('abuse')->info("UPDATING the Post With Title ".$request->input('title'). " by user", ['user_id' => Auth::user()->id]);
         return redirect('/blog')->with('message', 'Post has been updated !');
     }
 

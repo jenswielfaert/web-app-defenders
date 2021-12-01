@@ -1,44 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class=" w-4/5 m-auto text-left">
-    <div class="py-15">
-        <h1 class="text-6xl">
-            Create Post
-        </h1>
+    <div class=" w-4/5 m-auto text-center">
+        <div class="py-16 border-b border-gray-200">
+            <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">Create A New Post</h1>
+        </div>
     </div>
-</div>
-
-<br>
-
-@if ($errors->any())
-    <div class="w-4/5 m-auto">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li class="w-1/5 mb-4 text-gray-50 bg-red-700 py-4">
-                    {{$error}}
-                </li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-<div id="editor">
-    <form action="/blog" method="POST" enctype="multipart/form-data">
-        @csrf
-
-        <input type="text" name="title" placeholder="Title..." class="bg-transparent py-20 block border-b-2 w-full h-60 text-xl outline-border">
-        <textarea name="description" placeholder="Description..." class=" py-20 bg-transparent block border-b-2 w-full h-60 text-xl outline-border"></textarea>
-        <div class="bg-grey-lighter pt-15">
-            <label class="w-44 flex flex-col items-center px-2 py-3 bg-white-rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer"></label>
-            <span class="mt-2 text-base leading-normal"> Select a file </span>
-            <input type="file" class="hidden" name="image" accept=".png, .jpg, .jpeg">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="mt-6 mb-4">
+            <p class="text-base md:text-sm text-blue-500 font-bold">&lt <a href="{{url()->previous()}}" class="text-base md:text-sm text-blue-500 font-bold no-underline hover:underline">BACK</a></p>
         </div><br>
-        <button type="submit" class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">Submit Post</button>
-    </form>
-</div>
+    </div>
+    <br>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <form id="form" method="POST" action="/blog" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-4">
+                            <label class="text-xl text-gray-600">Title <span class="text-red-500">*</span>
+                            </label>
+                            </br>
+                            <input type="text" class="border-2 border-gray-300 p-2 w-full" name="title" id="title" value="" required>
+                        </div>
+                        <div class="mb-8">
+                            <label class="text-xl text-gray-600">Content <span class="text-red-500">*</span>
+                            </label>
+                            </br>
+                            <div id="editor" name="editor" style="font-family: Georgia">
 
+                            </div>
+                            <input type="text" name="content" id="content" value="" hidden>
+                        </div>
+                        <div class="flex p-1">
+                            <select class="border-2 border-gray-300 border-r p-2" name="action">
+                                <option>Publish</option>
+                                <option>Save Draft</option>
+                            </select>
+                            <button type="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400" required>Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 <script src="{{asset('js/quill-custom.js')}}"></script>
 @endsection
 
