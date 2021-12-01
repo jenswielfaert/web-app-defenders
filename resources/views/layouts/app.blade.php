@@ -48,6 +48,12 @@
                         <a class="no-underline hover:underline" href="{{ URL::temporarySignedRoute('posts.workspace', now()->addMinutes(30)) }}">Workspace</a>
                     @endif
 
+                    @if (Auth::Check())
+                        <a class="no-underline hover:underline" href="/userpage"> MyProfile </a>
+                    @else
+
+                    @endif
+
                     @guest
                         <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
                         @if (Route::has('register'))

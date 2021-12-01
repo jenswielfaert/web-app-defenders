@@ -5,7 +5,7 @@
         <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal" style="font-family:Georgia,serif;">
             <!--Post Title-->
             <div class="font-sans">
-                <p class="text-base md:text-sm text-blue-500 font-bold">&lt <a href="{{url()->previous()}}" class="text-base md:text-sm text-blue-500 font-bold no-underline hover:underline">BACK TO BLOG</a>
+                <p class="text-base md:text-sm text-blue-500 font-bold">&lt <a href="{{route('posts.workspace')}}" class="text-base md:text-sm text-blue-500 font-bold no-underline hover:underline">BACK TO BLOG</a>
                 </p>
                 <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">{{$post->title}}</h1>
                 <p class="text-sm md:text-base font-normal text-gray-600">Published {{$post->posted_at}}</p>
@@ -35,7 +35,7 @@
 
         <!-- comment form -->
 
-            <form id="comment-form" class="bg-white rounded-lg p-3  flex flex-col justify-center items-center md:items-start shadow-lg mb-4" method="POST" action="{{route('comments.store', $post->id)}}" enctype="multipart/form-data">
+            <form id="comment-form" class="bg-white rounded-lg p-3  flex flex-col justify-center items-center md:items-start shadow-lg mb-4" method="POST" action="{{URL::temporarySignedRoute('comments.store', now()->addMinutes(30), ['post_id' => $post->id])}}" enctype="multipart/form-data">
                 @csrf
                 <div class="flex flex-wrap -mx-3 mb- p-7" >
                     <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Leave a comment</h2>

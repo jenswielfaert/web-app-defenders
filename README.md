@@ -1,5 +1,6 @@
 ## Bladwijzers
-[Diagrammen](https://github.com/EHB-TI/web-app-defenders/blob/main/Diagrammen/DIAGRAMMEN.md)
+* [Diagrammen](https://github.com/EHB-TI/web-app-defenders/blob/main/Diagrammen/DIAGRAMMEN.md)
+* [Website URL (www.ehbdefendersblog.com)](https://ehbdefendersblog.com)
 
 # Doelstelling
 *Leg kort uit hoe deze webapp omzet zal maken of iets kan vergemakkelijken in het dagdagelijkse leven van zijn gebruikers.*
@@ -179,7 +180,37 @@ Een Admin user kan alle posten bijwerken of verwijderen.
 |I -> Information disclosure	|= Confidentiality	|--- Informatie verstrekken aan iemand die niet bevoegd is om er toegang toe te krijgen|
 |D -> Denial of service		|= Availability		|--- Exhausting resources die nodig zijn om service te verlenen|
 |E -> Elevation of privilege	|= Authorization		|--- Iemand iets laten doen waartoe hij niet bevoegd is|
-  
+    
+### Spoofing
+Oplossing
+* Auth0 als authenticatiesysteem.
+* Inlogpogingen beperken.
+* E-mail wordt geverifieerd bij registratie; De gebruiker ontvangt een mail met een verificatiecode (die verloopt) om de e-mail te bevestigen.
+* Implementatie van een correct wachtwoordbeleid; Minimumlengte voor het wachtwoord. Controleren of wachtwoord is blootgesteld geweest.
+* Opnieuw authenticatie vereisen voor gevoelige features zoals het verwijderen van een account of het wijzigen van het wachtwoord.
+* Identificatie van de client op basis van client en browser data. Een server kan verdachte User-Agents beperken of detecteren om spoofing te voorkomen.
+
+### Tampering
+Oplossing
+* Correcte validatie van user input.
+* Permissies
+
+### Repudiation
+Oplossing
+* Logging: illegale operaties in een applicatie traceerbaar maken.
+ 
+### Information disclosure
+Oplossing
+* Encryptie van data
+* ACLs
+
+### Denial of service
+Oplossing
+* Data Encryptie
+* Permissies
+    
+### Elevation of privilege
+   
 # Deployment
 *minimally, this section contains a public URL of the app. A description of how your software is deployed is a bonus. Do you do this manually, or did you manage to automate? Have you taken into account the security of your deployment process?*
 # *you may want further sections*

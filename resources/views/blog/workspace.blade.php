@@ -34,18 +34,18 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-4 mt-8 mb-8">
                     <div class="col-span-2 sm:col-span-1 xl:col-span-1">
-                        {{--                            @if ($post->image_path)--}}
-                        {{--                                <img src="{{asset('images/' . $post->image_path) }}" width="600" alt="post_image"/>--}}
-                        {{--                            @else--}}
+                                                   @if ($post->image_path)
+                                                       <img src="{{asset('images/' . $post->image_path) }}" width="600" alt="post_image"/>
+                                                 @else
                         <img src="{{asset('images/df.jpg')}}" width="600" alt="post_default_image"/>
-                        {{--                            @endif--}}
+                                                    @endif
                     </div>
                     <div class="col-span-2 sm:col-span-4 xl:col-span-4">
                         <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{{$post->title}}</h2>
                         <p class="leading-relaxed">{{Helper::ellipse(strip_tags(html_entity_decode($post->content)))}}</p>
                         <span class="font-semibold title-font text-gray-700">{{$post->likes->count()}} {{Str::plural('like', $post->likes->count()) }}</span>
                         <span class="mt-1 text-gray-500 text-sm">Last Edited On {{$post->updated_at}}</span>
-                   <a href="/blog/{{$post->id}}" class="text-blue-500 inline-flex items-center mt-4">Keep Reading
+                   <a href="{{ URL::temporarySignedRoute('posts.show', now()->addMinutes(30), ['id' => $post->id]) }}" class="text-blue-500 inline-flex items-center mt-4">Keep Reading
                             <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M5 12h14"></path>
                                 <path d="M12 5l7 7-7 7"></path>

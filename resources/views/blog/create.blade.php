@@ -33,7 +33,27 @@
                             </div>
                             <input type="text" name="content" id="content" value="" hidden>
                         </div>
-                        <div class="flex p-1">
+                        <div class="bg-grey-lighter pt-15">
+                            <label class="text-xl text-gray-600">Upload an image (jpg,png,jpeg)  <span class="text-red-500">*</span>
+                                <div class="flex items-center justify-center w-full">
+                                    <label class="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                                        <div class=" flex flex-col items-center justify-center pt-7">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 class="w-125 h-12 text-gray-400 group-hover:text-gray-600" viewBox="0 0 20 20"
+                                                 fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                      d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                                                      clip-rule="evenodd" />
+                                            </svg>
+                                            <p class="pt-1 text-sm tracking-wider w-full text-gray-400 group-hover:text-gray-600">
+                                            </p>
+                                        </div>
+                                        <input value="Select" type="file" class="opacity-50  mt-15 bg-blue-500 text-gray-100" name="image" accept=".png, .jpg, .jpeg" >
+                                        <!-- <input type="file" class="opacity-0" /> -->
+                                    </label>
+                                </div>
+                        </div>
+                        <div class="flex p-1 mt-4">
                             <select class="border-2 border-gray-300 border-r p-2" name="action">
                                 <option>Publish</option>
                                 <option>Save Draft</option>

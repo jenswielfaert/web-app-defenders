@@ -1,19 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware(['auth', 'verified'], ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
     /**
@@ -21,6 +23,19 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getpostsbyid($id){
+        $post = Post::where('id', $id)->first();
+        return response()->json($post);
+    }
+
+    public function getposts(){
+        $posts = Post::all();
+        return response()->json($posts);
+    }
+
+
+
     public function index(Request $request)
     {
         $posts =  Post::orderBy('updated_at', 'DESC')->paginate(6);
@@ -54,9 +69,8 @@ class PostController extends Controller
         else{
             return view("blog.workspace")->with('posts', $posts->orderBy('updated_at', 'DESC')->get())->with($url);
         }
+
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -85,30 +99,33 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $dateS = Carbon::now()->startOfMonth()->subMonth(1);
+        $dateE = Carbon::now();
 
-        $user = auth()->user();
+        $posts = Post::all()->whereBetween('created_at',[$dateS, $dateE]);
 
         $request->validate([
             'title' => 'required',
             'content' => 'required',
         ]);
 
-        //$newImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
+        $newImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
 
-        //$request->image->move(public_path('images'), $newImageName);
+        $request->image->move(public_path('images'), $newImageName);
 
 
         $post = Post::create([
             'title'=> $request->input('title'),
             'slug'=> Str::random(5),
             'content' => $request->input('content'),
-          //  'image_path' => $newImageName,
-            'author_id' => $user->id
+            'image_path' => $newImageName,
+            'author_id' => auth()->user()->id
         ]);
 
         $user->posts()->attach($post);
         Log::channel('abuse')->info("Creating the Post With title ".$request->input('title'). " by user", ['user_id' => $request->user()->id]);
-        return redirect('/blog')->with('message', 'Your Post has been added!');
+        return redirect()->route('posts.store', compact('posts'))->with('info', 'Your Post has been added!');
     }
 
     /**
@@ -191,7 +208,7 @@ class PostController extends Controller
      */
     public function update(Request $request)
     {
-       // $UpdatednewImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
+        $UpdatednewImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
 
         $request->validate([
             'title' => 'required',
@@ -200,14 +217,14 @@ class PostController extends Controller
         ]);
 
         $actualPost = Post::find($request->id);
-       // $request->image->move(public_path('images'), $UpdatednewImageName);
+        $request->image->move(public_path('images'), $UpdatednewImageName);
 
         $actualPost->title = $request->input('title');
         $actualPost->content = $request->input('content');
         //$actualPost->user->id = $request->Auth::user()->id;
-       // $actualPost->image_path = $UpdatednewImageName;
+        $actualPost->image_path = $UpdatednewImageName;
         $actualPost->update();
-        Log::channel('abuse')->info("UPDATING the Post With Title ".$request->input('title'). " by user", ['user_id' => Auth::user()->id]);
+        Log::channel('abuse')->info("UPDATING the Post With Title ".$request->input('title'). " by user", ['user_id' => $request->user()->id]);
         return redirect('/blog')->with('message', 'Post has been updated !');
     }
 

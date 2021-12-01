@@ -16,7 +16,7 @@ class Post extends Model implements Likeable
 
     protected  $table = "posts";
 
-    protected $fillable = ['title', 'content', 'slug', 'posted_at', 'published', 'author_id', 'thumbnail_id'];
+    protected $fillable = ['title', 'content', 'slug', 'posted_at', 'published', 'author_id', 'image_path'];
 
     /**
      * @var array

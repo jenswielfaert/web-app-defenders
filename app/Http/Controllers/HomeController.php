@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,7 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $dateS = Carbon::now()->startOfMonth()->subMonth(3);
+        $dateE = Carbon::now();
+ 
+        $posts = Post::all('posts')->whereBetween('created_at',[$dateS, $dateE]);
         Log::channel('abuse')->info("Showing the INDEX PAGE");
-        return view('index');
+        
+        return view('index', compact('posts'));
     }
 }

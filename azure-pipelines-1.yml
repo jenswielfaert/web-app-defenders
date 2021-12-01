@@ -10,7 +10,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '8418b771-7141-42ef-be75-57ec7354a0a2'
+  dockerRegistryServiceConnection: '05b8fee2-3ca0-41ce-a46d-6c59da2161dd'
   imageRepository: 'ehbblogapp'
   containerRegistry: 'defendersehbregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
@@ -32,7 +32,6 @@ stages:
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        includeLatestTag: true
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)

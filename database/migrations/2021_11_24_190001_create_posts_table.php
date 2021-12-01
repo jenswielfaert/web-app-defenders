@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
 
             $table->integer('author_id')->unsigned();
 
-            $table->integer('thumbnail_id')->unsigned()->nullable();
+            $table->string('image_path');
 
             $table->string('title');
             $table->longText('content');
@@ -31,7 +31,6 @@ class CreatePostsTable extends Migration
 
         Schema::table('posts', function($table) {
             $table->foreign('author_id')->references('id')->on('users');
-            $table->foreign('thumbnail_id')->references('id')->on('images');
         });
     }
 

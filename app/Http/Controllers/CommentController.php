@@ -54,12 +54,13 @@ class CommentController extends Controller
             'post_id' => $post->id
         ]);
 
-        $url = URL::temporarySignedRoute('posts.workspace', now()->addMinutes(30));
-        if (! $request->hasValidSignature()) {
+        $url = URL::temporarySignedRoute('posts.show', now()->addMinutes(30), ['id' => $post->id]);
+        if (!$request->hasValidSignature()) {
             return redirect()->route('index')->with('info', 'Please use the navigation bar to navigate !');
         }
         else{
-            return redirect()->back()->with('message','Operation Successful !')->with($url);
+            return redirect($url);
+            //URL::SignedRoute('posts.workspace');
         }
     }
 
