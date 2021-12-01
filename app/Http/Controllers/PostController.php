@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -40,15 +41,21 @@ class PostController extends Controller
     {
         //$posts = Post::all(); //Gets all posts from DB.
         //dd($posts);
+        if(Auth::check()) 
+        {
         Log::channel('abuse')->info("Showing the Blog PAGE by user ".auth()->user()->id);
         $url = URL::temporarySignedRoute('posts', now()->addMinutes(30));
-        if (! $request->hasValidSignature()) {
-            return redirect()->route('index'); // ->with('info', 'Please use the navigation bar to navigate !')
+            if (! $request->hasValidSignature()) {
+                return redirect()->route('index'); // ->with('info', 'Please use the navigation bar to navigate !')
+            }
+            else{
+                return view("blog.index")->with('posts', Post::orderBy('updated_at', 'DESC')->get())->with($url);
+            }
         }
-        else{
-            return view("blog.index")->with('posts', Post::orderBy('updated_at', 'DESC')->get())->with($url);
+        else
+        {
+            return view('auth.login');
         }
-        
     }
 
     /**

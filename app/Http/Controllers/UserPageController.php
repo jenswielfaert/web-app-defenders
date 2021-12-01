@@ -60,19 +60,19 @@ class UserPageController extends Controller
         $user->save(); 
 
         $user = Auth::user();
-        return redirect('/userpage')->with('Success');
+        return redirect('/userpage')->with('Success', "updated successfully");
 
     }
 
     public function delete($id)
     {
         if(Auth::check()){
-        User::destroy($id);
-        return redirect('/')->with('info', 'Your account has been deleted!');
-        Log::channel('abuse')->info("DELETING USER ".auth()->user()->id);
+            User::destroy($id);
+            return redirect('/')->with('info', 'Your account has been deleted!');
+            Log::channel('abuse')->info("DELETING USER ".auth()->user()->id);
         }
         else{
-        return redirect('/')-with('info', 'Please Login');
+            return redirect('/')-with('info', 'Please Login');
         }   
     }
 
