@@ -7,14 +7,13 @@
             <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">Blog Feed</h1>
         </div>
     </div>
-
-    @if (session()->has('message'))
-        <div class="w-4/5 m-auto mt-10 pl-2">
-            <p class="w-1/6 mb-4 text-gray-50 bg-green-500 rounded-1xl py-4"> {{session()->get('message')}} </p>
-        </div>
-    @endif
-
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        @if (session()->has('message'))
+            <div class="bg-green-100 border-t border-b border-green-500 text-green-700 px-4 py-3" role="alert">
+                <p class="font-bold">Message</p>
+                <p class="text-sm">{{session()->get('message')}} </p>
+            </div>
+        @endif
         <div class="mt-6 mb-4">
             <p class="text-base md:text-sm text-blue-500 font-bold">&lt <a href="{{route('index')}}" class="text-base md:text-sm text-blue-500 font-bold no-underline hover:underline">HOME</a></p>
         </div><br>

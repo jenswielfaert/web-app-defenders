@@ -65,15 +65,15 @@ class InviteController extends Controller
 
 
         if(!User::where('email', $email)->first()){
-            return "User not registered.";
+            return redirect()->route('posts.editors', $post_id)->with('error', 'Email is not registered !');
         }
 
         if(Invite::where('email', $email)->where('post_id', $post_id)->first()){
-            return "Invite already sent.";
+            return redirect()->route('posts.editors', $post_id)->with('error', 'Email already sent !');
         }
 
         if($post->hasEditor($email)){
-            return "User is already editor";
+            return redirect()->route('posts.editors', $post_id)->with('error', 'User is already editor !');
         }
 
         do {
@@ -89,7 +89,6 @@ class InviteController extends Controller
             'expired_at' => $expiration
         ]);
 
-        // Send mail with url
         $url = URL::temporarySignedRoute(
             'invites.handle', now()->addDays(1), ['token' => $token]
         );
@@ -115,14 +114,14 @@ class InviteController extends Controller
         $invite = Invite::where('token', $token)->first();
 
         if(!$invite){
-            return "Invite does not exist.";
+            return redirect('/blog')->with('message', 'Invite does not exist !');
         }
 
         $email = $invite->email;
         $user = User::where('email', $email)->first();
 
         if(auth()->user()->id !== $user->id){
-            return "Could not authenticate user.";
+            return redirect('/blog')->with('message', 'You not to be logged in !');
         }
 
         $post = Post::where('id', $invite->post_id)->first();

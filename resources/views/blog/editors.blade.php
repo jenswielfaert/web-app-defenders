@@ -8,8 +8,14 @@
         </div>
     </div>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        @if (session()->has('error'))
+            <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+                <p class="font-bold">Message</p>
+                <p class="text-sm">{{session()->get('error')}} </p>
+            </div>
+        @endif
         <div class="mt-6 mb-4">
-            <p class="text-base md:text-sm text-blue-500 font-bold">&lt <a href="{{url()->previous()}}" class="text-base md:text-sm text-blue-500 font-bold no-underline hover:underline">BACK</a></p>
+            <p class="text-base md:text-sm text-blue-500 font-bold">&lt <a href="{{route('posts.workspace')}}" class="text-base md:text-sm text-blue-500 font-bold no-underline hover:underline">BACK</a></p>
         </div><br>
     </div>
     <br>
@@ -46,6 +52,11 @@
                                     <tr class="divide-gray-100">
                                         <td class="p-4">{{$editor->email}}</td>
                                         <td>
+                                            @if(Auth::id() == $editor->id)
+                                                <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200 uppercase last:mr-0 mr-1">
+                                                  Admin Editor
+                                                </span>
+                                            @else
                                             <div>
                                                 <form method="POST" action="{{ route('editors.destroy', ['id' => $post->id]) }}">
                                                     @csrf
@@ -55,6 +66,7 @@
                                                         Remove
                                                     </button>
                                                 </form>
+                                            @endif
                                             </div>
                                         </td>
                                     </tr>

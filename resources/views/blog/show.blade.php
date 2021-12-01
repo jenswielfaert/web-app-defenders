@@ -15,11 +15,12 @@
                 {!! html_entity_decode(($post->content)) !!}
             </div>
             <!--/ Post Content-->
+            <div style="font-family: system-ui">
+                <span class="font-semibold title-font text-gray-700">{{$post->likes->count()}} {{Str::plural('like', $post->likes->count()) }}</span>
+                <button class="text-red-500 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">Like
+                </button>
+            </div>
         </div>
-        <form></form>
-        <button class="text-red-500 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-            <i class="fas fa-heart"></i> Like
-        </button>
         <hr class="border-0 bg-gray-500 text-gray-500 h-px">
         <!--Author-->
         <div class="flex w-full items-center font-sans px-4 py-12">

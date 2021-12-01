@@ -40,7 +40,7 @@ Route::get('/blog/workspace', [PostController::class, 'workspace'])->name('posts
 Route::get('/blog/workspace/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
 Route::get('/blog/workspace/{id}/edit', [PostController::class, 'edit',])->name('posts.edit');
 Route::put('/blog/workspace/{id}', [PostController::class ,'update'])->middleware('auth');
-Route::delete('/blog/workspace/{id}', [PostController::class, 'destroy'])->middleware('auth');
+
 
 // Comments
 Route::post('comments/{post_id}', [CommentController::class, 'store'])->name('comments.store');
@@ -60,3 +60,4 @@ Route::delete('/blog/{id}/editors', [EditorController::class, 'destroy' ])->name
 Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
 Route::post('/blog', [PostController::class, 'store'])->name('posts.store');
 Route::get('/blog/{id}', [PostController::class, 'show' ])->name('posts.show');
+Route::delete('/blog/{id}', [PostController::class, 'destroy'])->middleware('auth');
