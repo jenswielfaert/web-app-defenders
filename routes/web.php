@@ -6,7 +6,12 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\UserPageController;
-
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InviteController;
+use App\Http\Controllers\EditorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,7 +38,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/blog/workspace', [PostController::class, 'workspace'])->name('posts.workspace')->middleware('auth');
 
-Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
+Route::get('/blog', [PostController::class, 'index'])->name('posts.index')->middleware('auth','verified');
 
 Route::get('/blog/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
 
@@ -55,7 +60,7 @@ Route::delete('/blog/{post}/likes', [PostLikeController::class, 'destroy'])->nam
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/userpage', [UserPageController::class, 'index'])->name('user.page.index');
+Route::get('/userpage', [UserPageController::class, 'index'])->name('user.page.index')->middleware(('verified'));
 
 Route::get('/userpage/{userid}', [UserPageController::class, 'edit'])->name('User.edit');
 
