@@ -136,7 +136,8 @@ class PostController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $post = Post::where('id', $id)->first();
+        //$post = Post::where('id', $id)->first();
+        $post = Post::findOrFail($id);
         $comments = $post->comments()->paginate(5);
         Log::channel('abuse')->info("SHOWING the Post With ID ".$id. " by user", ['user_id' => auth()->user()->id]);
         $comments->withPath($request->fullUrlWithoutQuery('page'));
