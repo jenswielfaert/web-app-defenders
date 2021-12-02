@@ -19,11 +19,21 @@ use App\Http\Controllers\UserPageController;
 */
 
 
-Auth::routes();
 
-Route::get('/', [PagesController::class, 'index'])->name('index');
 
-Route::get('/blog', [PostController::class, 'index'])->name('posts');
+//Auth::routes(['verify' => true]);
+
+//Route::get('/home', 'HomeController@index')->name('home'); 
+
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('index');
+
+Auth::routes(['verify' => true]);
+
+//Route::get('/', [PagesController::class, 'index'])->name('index');
+
+Route::get('/blog/workspace', [PostController::class, 'workspace'])->name('posts.workspace')->middleware('auth');
+
+Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
 
 Route::get('/blog/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
 
@@ -39,21 +49,41 @@ Route::delete('/blog/{id}', [PostController::class, 'destroy'])->middleware('aut
 
 Route::post('/blog/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
 
-Route::delete('/blog/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes');
+Route::delete('/blog/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes.delete');
+    
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/userpage', [\App\Http\Controllers\UserPageController::class, 'index'])->name('User.page');
+Route::get('/userpage', [UserPageController::class, 'index'])->name('user.page.index');
 
-Route::get('/userpage/{userid}', [\App\Http\Controllers\UserPageController::class, 'edit'])->name('User.edit');
+Route::get('/userpage/{userid}', [UserPageController::class, 'edit'])->name('User.edit');
 
 Route::put('/userpage/{userid}', [UserPageController::class, 'update'])->middleware('auth')->name('editprofile');
 
 Route::delete('/userpage/{userid}', [UserPageController::class, 'delete'])->middleware('auth')->name('deleteprofile');
 
-Route::get('/userpage', [UserPageController::class, 'getdata'])->name('user.getdata')->middleware('auth');
+Route::get('/userpage/data/{user_id}', [UserPageController::class, 'getdata'])->name('user.getdata')->middleware('auth');
+
+// Workspace
+
+Route::get('/blog/workspace/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
+Route::get('/blog/workspace/{id}/edit', [PostController::class, 'edit',])->name('posts.edit');
+Route::put('/blog/workspace/{id}', [PostController::class ,'update'])->middleware('auth');
+
+// Comments
+Route::post('comments/{post_id}', [CommentController::class, 'store'])->name('comments.store');
+Route::delete('comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+// Invites
+Route::post('/invites/{post_id}', [InviteController::class, 'send'])->name('invites.send');
+Route::get('/invites', [InviteController::class, 'handle'])->name('invites.handle');
+Route::delete('/invites/{id}', [InviteController::class, 'destroy'])->name('invites.destroy');
+// Editors
+Route::get('/blog/{id}/editors', [PostController::class, 'editors' ])->name('posts.editors');
+Route::delete('/blog/{id}/editors', [EditorController::class, 'destroy' ])->name('editors.destroy');
 
 //Route::get('/api/getposts', [\App\Http\Controllers\PostController::class, 'getposts'])->name('getposts');
 //Route::get('/api/getposts/{id}', [\App\Http\Controllers\PostController::class, 'getpostsbyid'])->name('getpostsbyid');
+Auth::routes();
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

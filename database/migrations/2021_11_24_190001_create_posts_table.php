@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsBLogTable extends Migration
+class CreatePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,26 @@ class CreatePostsBLogTable extends Migration
      */
     public function up()
     {
-        
         Schema::create('posts', function (Blueprint $table){
+            $table->increments('id');
 
-                $table->increments('id');
-                $table->string('slug');
-                $table->string('title');
-                $table->longText('description');
-                $table->string('image_path');
-                $table->timestamps();
-                $table->unsignedBigInteger('user_id')->nullable();
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            });
-        
-    }   
+            $table->integer('author_id')->unsigned();
+
+            $table->string('image_path');
+
+            $table->string('title');
+            $table->longText('content');
+            $table->string('slug');
+            $table->boolean('published')->default(0);
+
+            $table->timestamp('posted_at');
+            $table->timestamps();
+        });
+
+        Schema::table('posts', function($table) {
+            $table->foreign('author_id')->references('id')->on('users');
+        });
+    }
 
     /**
      * Reverse the migrations.
@@ -35,7 +41,6 @@ class CreatePostsBLogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
         Schema::table('posts', function (Blueprint $table)
         {
             $table->dropForeign('posts_user_id_foreign');
