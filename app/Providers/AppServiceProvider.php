@@ -31,11 +31,5 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Schema::defaultStringLength(191); 
-
-       /* Validator::extend('pwned', Pwned::class);
-
-        Validator::replacer('pwned', function ($message, $attribute, $rule, $parameters) {
-            return str_replace(':min', array_shift($parameters) ?? 1, $message);
-        }); */
     }
 }
