@@ -29,10 +29,9 @@ class HomeController extends Controller
     {
         $dateS = Carbon::now()->startOfMonth()->subMonth(3);
         $dateE = Carbon::now();
- 
+
         $posts = Post::all()->whereBetween('created_at',[$dateS, $dateE]);
         Log::channel('abuse')->info("Showing the INDEX PAGE");
-        //dd($posts);
 
         return view('index', compact('posts'));
     }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Log;
@@ -60,7 +62,7 @@ class PostController extends Controller
     public function workspace(Request $request)
     {
         $posts = auth()->user()->posts();
-        
+
         Log::channel('abuse')->info("Showing the Blog PAGE by user ".auth()->user()->id);
         $url = URL::temporarySignedRoute('posts.workspace', now()->addMinutes(30));
         if (! $request->hasValidSignature()) {
@@ -105,10 +107,16 @@ class PostController extends Controller
 
         $posts = Post::all()->whereBetween('created_at',[$dateS, $dateE]);
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'title' => 'required',
             'content' => 'required',
+            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]);
+
+
+        if ($validator->fails()) {
+            return redirect(URL::temporarySignedRoute('posts.create', now()->addMinutes(30)))->with('error', Arr::first(Arr::flatten($validator->messages()->get('*'))));
+        }
 
         $newImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
 
@@ -209,15 +217,21 @@ class PostController extends Controller
      */
     public function update(Request $request)
     {
-        $UpdatednewImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
-
-        $request->validate([
+         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'content' => 'required',
-           // 'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]);
 
+
+
+        if ($validator->fails()) {
+            return redirect(URL::temporarySignedRoute('posts.edit', now()->addMinutes(30), ['id' => $request->id]))->with('error', Arr::first(Arr::flatten($validator->messages()->get('*'))));
+        }
+
+        $UpdatednewImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
         $actualPost = Post::find($request->id);
+
         $request->image->move(public_path('images'), $UpdatednewImageName);
 
         $actualPost->title = $request->input('title');

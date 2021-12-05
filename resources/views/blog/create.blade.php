@@ -7,6 +7,12 @@
         </div>
     </div>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        @if (session()->has('error'))
+            <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+                <p class="font-bold">Message</p>
+                <p class="text-sm">{{session()->get('error')}} </p>
+            </div>
+        @endif
         <div class="mt-6 mb-4">
             <p class="text-base md:text-sm text-blue-500 font-bold">&lt <a href="{{url()->previous()}}" class="text-base md:text-sm text-blue-500 font-bold no-underline hover:underline">BACK</a></p>
         </div><br>
@@ -34,7 +40,7 @@
                             <input type="text" name="content" id="content" value="" hidden>
                         </div>
                         <div class="bg-grey-lighter pt-15">
-                            <label class="text-xl text-gray-600">Upload an image (jpg,png,jpeg)  <span class="text-red-500">*</span>
+                            <label class="text-xl text-gray-600">Upload an image (jpg,png,jpeg)  <span class="text-red-500">*</span></label>
                                 <div class="flex items-center justify-center w-full">
                                     <label class="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
                                         <div class=" flex flex-col items-center justify-center pt-7">
@@ -56,7 +62,6 @@
                         <div class="flex p-1 mt-4">
                             <select class="border-2 border-gray-300 border-r p-2" name="action">
                                 <option>Publish</option>
-                                <option>Save Draft</option>
                             </select>
                             <button type="submit" class="p-3 bg-blue-500 text-white hover:bg-blue-400" required>Submit</button>
                         </div>
