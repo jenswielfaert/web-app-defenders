@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use App\Models\Interfaces\Likeable;
-use App\Models\Traits\Likes;
+use App\Models\Likes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Post extends Model implements Likeable
+class Post extends Model
 {
-    use Likes, HasFactory;
+    use HasFactory;
 
     protected  $table = "posts";
 
@@ -61,12 +61,12 @@ class Post extends Model implements Likeable
         return filled($this->thumbnail_id);
     }
 
-    public function likess(){
-        return $this->hasMany(likes::class);
+    public function likes(){
+        return $this->hasMany(Likes::class);
     }
 
     public function likedBy(User $user){
-        return $this->likes->contains('user_id', $user->id);
+        return $this->likes()->where('user_id', $user->id)->first();
     }
 
     public function editors(): BelongsToMany

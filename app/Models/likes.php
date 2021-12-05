@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class Likes extends Model
 {
     use HasFactory;
-    
+
     protected  $table = "likes";
     protected $fillable = [
-        'user_id'
+        'user_id',
+        'post_id'
     ];
 
     public function user()

@@ -6,6 +6,9 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\UserPageController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\InviteController;
+use App\Http\Controllers\EditorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +26,7 @@ use App\Http\Controllers\UserPageController;
 
 //Auth::routes(['verify' => true]);
 
-//Route::get('/home', 'HomeController@index')->name('home'); 
+//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
@@ -50,7 +53,7 @@ Route::delete('/blog/{id}', [PostController::class, 'destroy'])->middleware('aut
 Route::post('/blog/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
 
 Route::delete('/blog/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes.delete');
-    
+
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

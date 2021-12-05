@@ -5,7 +5,7 @@
         <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal" style="font-family:Georgia,serif;">
             <!--Post Title-->
             <div class="font-sans">
-                <p class="text-base md:text-sm text-blue-500 font-bold"> &lt <a href="{{route('posts.workspace')}}" class="text-base md:text-sm text-blue-500 font-bold no-underline hover:underline">BACK TO BLOG</a>
+                <p class="text-base md:text-sm text-blue-500 font-bold"> &lt <a href="{{ URL::temporarySignedRoute('posts.index', now()->addMinutes(30)) }}" class="text-base md:text-sm text-blue-500 font-bold no-underline hover:underline">BACK TO BLOG</a>
                 </p>
                 <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">{{$post->title}}</h1>
                 <p class="text-sm md:text-base font-normal text-gray-600">Published {{$post->posted_at}}</p>
@@ -19,36 +19,25 @@
             @if (!$post->likedBy(auth()->user()))
                 <form action="{{ route('posts.likes', $post->id) }}" method="POST" >
                     @csrf
-                    <button type="submit" 
-                    class="text-red-500 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Like</button>
+                    <button style="font-family: system-ui" type="submit"
+                    class="text-white-500 font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Like</button>
                 </form>
             @else
-                <form action="{{ route('posts.likes.delete', $post->id) }}" method="POST"> 
+                <form action="{{ route('posts.likes.delete', $post->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" 
-                    class="text-red-500 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">UnLike</button>
+                    <button style="font-family: system-ui" type="submit"
+                    class="text-white-500 font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">UnLike</button>
                 </form>
             @endif
-
-
-
-
-
-
-           <!-- <div style="font-family: system-ui">
-                <span class="font-semibold title-font text-gray-700">{{$post->likes->count()}} {{Str::plural('like', $post->likes->count()) }}</span>
-                <button class="text-red-500 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">Like
-                </button>
-            </div> -->
         </div>
         <hr class="border-0 bg-gray-500 text-gray-500 h-px">
         <!--Author-->
         <div class="flex w-full items-center font-sans px-4 py-12">
-            <img class="w-10 h-10 rounded-full mr-4" src="http://i.pravatar.cc/300" alt="Avatar of Author">
+            <img class="w-10 h-10 rounded-full mr-4" src="https://cdn1.iconfinder.com/data/icons/technology-devices-2/100/Profile-512.png" alt="Avatar of Author">
             <div class="flex-1 px-2">
                 <p class="text-base font-bold text-base md:text-xl leading-none mb-2"> {{$post->author->name}}</p>
-                <p class="text-gray-600 text-xs md:text-base">Here comes the Bio
+                <p class="text-gray-600 text-xs md:text-base">Author
                 </p>
             </div>
         </div>

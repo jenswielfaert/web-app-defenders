@@ -26,11 +26,11 @@
                 @foreach ($posts as $post)
                     <div class="grid grid-cols-1 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-4 mt-8 mb-8">
                         <div class="col-span-2 sm:col-span-1 xl:col-span-1">
-{{--                            @if ($post->image_path)--}}
-{{--                                <img src="{{asset('images/' . $post->image_path) }}" width="600" alt="post_image"/>--}}
-{{--                            @else--}}
+                            @if ($post->image_path)
+                                <img src="{{asset('images/' . $post->image_path) }}" width="600" alt="post_image"/>
+                            @else
                                 <img src="{{asset('images/df.jpg')}}" width="600" alt="post_default_image"/>
-{{--                            @endif--}}
+                            @endif
                         </div>
                         <div class="col-span-2 sm:col-span-4 xl:col-span-4">
                             <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{{$post->title}}</h2>
