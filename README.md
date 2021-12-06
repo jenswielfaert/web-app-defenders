@@ -114,6 +114,7 @@ Een Admin user kan alle posten bijwerken of verwijderen.
   
 | Naam | Bedreiging | Actie | Component |
 | :-----: | :-: | :-: | :-: |
+| Encryptie naar MySql DB | Ondershepping van informatie tussen App en DB (MITM attack) | Communucatie naar de DB zal geencrypteerd worden aan de hand van Certificate | Data Stream en Database. 
 |Cryptographic Failures | Het niet gebruiken van Cryptografie voor gevoelige data.| Gevoelige data zal geencrypteerd & gehashed worden. | Wachtwoorden |
 |Broken Access Control | De toegang verlenen voor onbevoegden op de componenten | Beveiliging via Authorisatie & authenticatie. | Beheer van Gebruikersrechten mechanisme |
 |Injection | Bv: Gebruikers Data Is niet gevalideerd.  | Built-in mechanism voor XSS attacks + validaties langs de server-side.| Bestanden (zoals fotos), input velden & formulieren |
