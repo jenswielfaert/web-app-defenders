@@ -28,7 +28,7 @@ use App\Http\Controllers\EditorController;
 
 //Auth::routes(['verify' => true]);
 
-//Route::get('/home', 'HomeController@index')->name('home'); 
+//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
@@ -55,7 +55,7 @@ Route::delete('/blog/{id}', [PostController::class, 'destroy'])->middleware('aut
 Route::post('/blog/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
 
 Route::delete('/blog/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes.delete');
-    
+
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -72,8 +72,8 @@ Route::get('/userpage/data/{user_id}', [UserPageController::class, 'getdata'])->
 
 // Workspace
 
-Route::get('/blog/workspace/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
-Route::get('/blog/workspace/{id}/edit', [PostController::class, 'edit',])->name('posts.edit');
+Route::get('/blog/workspace/create', [PostController::class, 'create'])->name('workspace.create')->middleware('auth');
+Route::get('/blog/workspace/{id}/edit', [PostController::class, 'edit',])->name('workspace.edit');
 Route::put('/blog/workspace/{id}', [PostController::class ,'update'])->middleware('auth');
 
 // Comments
