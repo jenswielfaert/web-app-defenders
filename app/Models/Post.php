@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Interfaces\Likeable;
-use App\Models\Likes;
+use App\Models\likes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -62,7 +62,7 @@ class Post extends Model
     }
 
     public function likes(){
-        return $this->hasMany(Likes::class);
+        return $this->hasMany(likes::class);
     }
 
     public function likedBy(User $user){
