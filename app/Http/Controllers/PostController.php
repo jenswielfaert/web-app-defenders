@@ -115,7 +115,7 @@ class PostController extends Controller
 
 
         if ($validator->fails()) {
-            return redirect(URL::temporarySignedRoute('posts.create', now()->addMinutes(30)))->with('error', Arr::first(Arr::flatten($validator->messages()->get('*'))));
+            return redirect(URL::temporarySignedRoute('workspace.create', now()->addMinutes(30)))->with('error', Arr::first(Arr::flatten($validator->messages()->get('*'))));
         }
 
         $newImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
@@ -226,7 +226,7 @@ class PostController extends Controller
 
 
         if ($validator->fails()) {
-            return redirect(URL::temporarySignedRoute('posts.edit', now()->addMinutes(30), ['id' => $request->id]))->with('error', Arr::first(Arr::flatten($validator->messages()->get('*'))));
+            return redirect(URL::temporarySignedRoute('workspace.edit', now()->addMinutes(30), ['id' => $request->id]))->with('error', Arr::first(Arr::flatten($validator->messages()->get('*'))));
         }
 
         $UpdatednewImageName = uniqid() . '-' . $request->title . '-' . $request->image->extension();

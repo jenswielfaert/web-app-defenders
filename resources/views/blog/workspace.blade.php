@@ -21,7 +21,7 @@
         </div><br>
 
         @if (Auth::check())
-            <a href="{{ URL::temporarySignedRoute('posts.create', now()->addMinutes(30)) }}"
+            <a href="{{ URL::temporarySignedRoute('workspace.create', now()->addMinutes(30)) }}"
                class="bg-blue-500 hover:bg-blue-500 text-white text-center py-2 px-4 mt-2">Create A New
                 Post</a>
         @endif
@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-span-2 sm:col-span-1 xl:col-span-1">
                         <span class="float-right">
-                                    <a href="{{ URL::temporarySignedRoute('posts.edit', now()->addMinutes(30), ['id' => $post->id]) }}"
+                                    <a href="{{ URL::temporarySignedRoute('workspace.edit', now()->addMinutes(30), ['id' => $post->id]) }}"
                                        class="text-gray-700 hover:text-gray-900 ml-5 pb-0.5 border-b-2">Edit
                                     </a>
                                 </span>
