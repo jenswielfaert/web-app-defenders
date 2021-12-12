@@ -211,8 +211,34 @@ Oplossing
 * Permissies
     
 ### Elevation of privilege
+  
+    
+# CI/CD & Deployement 
+    
+## Public URL
+    
+```sh
+ https://www.ehbdefendersblog.com/   
+```
+
+## Deployment Description
+- Every time when a developer pushes a code to the main branch OR there is merge into the MAIN branch from a different branch, our [Azure Pipeline](https://dev.azure.com/defenders-sp/Software%20Security/_build) gets triggered and launches a build + deployement process for the app.
+    
+- First Step is to retrieve our code/app from our [GitHub Repo](https://github.com/EHB-TI/web-app-defenders).
+    
+- Second step is to build and test the App. We can monitor this process in our [Azure Pipeline](https://dev.azure.com/defenders-sp/Software%20Security/_build).
+    
+- If our app is build successfully and there are no errors, the app may be deployed as a container, to our [Container Registry](https://portal.azure.com/#@ehb.onmicrosoft.com/resource/subscriptions/a081c48b-ed6f-45e3-9e10-dcab2b4e4ee6/resourceGroups/EHBDEFENDERS_RESOURCE/providers/Microsoft.ContainerRegistry/registries/defendersehbRegistry/overview) (full name: defendersehbregistry.azurecr.io).
+    
+- During Build and deployement process, the app gets tagged with the Docker Build ID. So Everytime when there is a deployement, the Build ID increments by 1. 
+    
+- The container with highest Build ID gets automatically pushed to our [Azure App Service](https://portal.azure.com/#@ehb.onmicrosoft.com/resource/subscriptions/a081c48b-ed6f-45e3-9e10-dcab2b4e4ee6/resourceGroups/EHBDEFENDERS_RESOURCE/providers/Microsoft.Web/sites/ehbdefendersapp/appServices) (where our app is running). Because highest Build ID = Most Recent Container.
+
+ - After the Final Deployement is done, The new container (highest build ID) is ready to serve and accept request after 1-2 mins. (the warm-up and deployement process of the Container).
    
-# Deployment
-*minimally, this section contains a public URL of the app. A description of how your software is deployed is a bonus. Do you do this manually, or did you manage to automate? Have you taken into account the security of your deployment process?*
+- And So on.. The whole process gets again triggered whenever there is a merge or push into the MAIN branch.
+    
+
+    
 # *you may want further sections*
 *especially if the use of your application is not self-evident*
