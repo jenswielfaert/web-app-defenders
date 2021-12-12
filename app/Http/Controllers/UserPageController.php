@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\GetMyDataMail;
-use App\Models\Likes;
+use App\Models\likes;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;

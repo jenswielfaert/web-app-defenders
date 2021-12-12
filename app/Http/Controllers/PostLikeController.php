@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
-use App\Models\Likes;
+use App\Models\likes;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class PostLikeController extends Controller
 
     public function store(Post $post, Request $request)
     {
-        Likes::create([
+        likes::create([
             'user_id' => $request->user()->id,
             'post_id' => $post->id
         ]);
